@@ -1,4 +1,4 @@
-# browserhome
+# BrowserHome
 
 ## Project setup
 ```
