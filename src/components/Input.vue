@@ -33,8 +33,9 @@
     background-color: rgba(240, 240, 240, .25);
     backdrop-filter: blur(1rem);
     text-align: center;
-    transition-duration: .2s;
+    transition-duration: .25s;
     font-family: -apple-system, BlinkMacSystemFont, Ubuntu, Microsoft YaHei;
+    margin-bottom: 30rem;
   }
 
   .input::placeholder {

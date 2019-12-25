@@ -12,19 +12,21 @@ export default new Vuex.Store({
       state.mode = target
       switch (target) {
         case 0: {
-          document.querySelector('#search').blur()
+          document.getElementById('search').blur()
+          document.getElementById('container').setAttribute('class', '')
           break
         }
         case 1: {
-          document.querySelector('#search').focus()
+          document.getElementById('search').focus()
+          document.getElementById('container').setAttribute('class', 'blur')
           break
         }
         case 2: {
-          document.querySelector('#search').blur()
+          document.getElementById('search').blur()
+          document.getElementById('container').setAttribute('class', '')
           break
         }
       }
-
     }
   },
   actions: {

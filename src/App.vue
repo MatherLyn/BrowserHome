@@ -2,12 +2,14 @@
   <div id="app">
     <Timer />
     <Input />
+    <Motto />
   </div>
 </template>
 
 <script>
   import Input from '@/components/Input'
   import Timer from '@/components/Timer'
+  import Motto from '@/components/Motto'
   export default {
     data () {
       return {
@@ -85,7 +87,8 @@
     },
     components: {
       Input,
-      Timer
+      Timer,
+      Motto
     }
   }
 </script>
@@ -101,22 +104,51 @@
   }
 
   body {
-    font-family: -apple-system, BlinkMacSystemFont, Ubuntu, Microsoft YaHei Light, Microsoft YaHei;
-    letter-spacing: .2rem;
-  }
-
-  #app {
     box-sizing: border-box;
     width: 100vw;
     height: 100vh;
     padding-top: 8rem;
+    font-family: -apple-system, BlinkMacSystemFont, Ubuntu, Microsoft YaHei Light, Microsoft YaHei;
+    letter-spacing: .2rem;
+    overflow: hidden;
+  }
+
+  #app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  #container {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 1;
     background-image: url('./assets/bg_winter_2.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    transition-duration: .25s;
+    overflow: hidden;
   }
 
+  .blur {
+    filter: blur(.1rem);
+    -webkit-filter: blur(.1rem);
+    -moz-filter: blur(.1rem);
+    -ms-filter: blur(.1rem);
+    transform: scale(1.1);
+  }
+
+  .display {
+    opacity: 1;
+  }
+
+  .hidden {
+    opacity: 0;
+  }
 </style>
