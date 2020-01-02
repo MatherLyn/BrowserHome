@@ -2,7 +2,9 @@
   <div id="app">
     <Main />
     <BGContainer />
-    <Snow />
+    <keep-alive include="Snow">
+      <Snow v-if="$store.state.winterSkin" />
+    </keep-alive>
   </div>
 </template>
 
@@ -23,7 +25,7 @@
     },
     methods: {
       focusOnInput () {
-
+        
       },
       focusOnHomepage () {
 
@@ -33,14 +35,13 @@
       }
     },
     mounted () {
-      // Esc键：切换到 0 状态（观赏状态）
-      // 回车键：切换到 1 状态（输入状态）
-      // 空格键：切换到 2 状态（功能状态）
-      // 点击右上角个人按钮：切换到3状态（定制状态）
-      // 点击右上角设置按钮：切换到4状态（设置状态）
       document.onkeydown = (e) => {
         switch (this.$store.state.mode) {
           case 0: {
+            // 观赏状态
+            // Esc退出到0
+            // Enter进入1
+            // 空格进入2
             if (e.keyCode == 27) {
               this.$store.commit('onModeChange', 0)
             }
@@ -53,21 +54,23 @@
             break
           }
           case 1: {
+            // 输入状态
+            // Esc退出到0
+            // Enter应该跳转搜索
+            // 空格不应该设置功能（要输入内容的）
             if (e.keyCode == 27) {
               this.$store.commit('onModeChange', 0)
             }
             if (e.keyCode == 13) {
-              this.$store.commit('onModeChange', 1)
-            }
-            if (e.keyCode == 32) {
-              this.$store.commit('onModeChange', 2)
+              // 跳转搜索
             }
             break
           }
           case 2: {
+            // 功能状态还没想好
             if (e.keyCode == 27) {
               this.$store.commit('onModeChange', 0)
-            }
+                          }
             if (e.keyCode == 13) {
               this.$store.commit('onModeChange', 1)
             }
@@ -76,11 +79,28 @@
             }
             break
           }
+          case 3: {
+            // 定制状态
+            // Esc退出到0
+            if (e.keyCode == 27) {
+              this.$store.commit('onModeChange', 0)
+            }
+          }
+          case 4: {
+            // 设置状态
+            // Esc退出到0
+            if (e.keyCode == 27) {
+              this.$store.commit('onModeChange', 0)
+            }
+          }
         }
-        console.log(this.$store.state.mode)
       }
-      document.onclick = (e) => {
+      document.getElementById('mainBox').onclick = (e) => {
+        // if (this.$store.state.mode == 3 || this.$store.state.mode == 4) {
+        //   return
+        // }
         this.$store.commit('onModeChange', 0)
+        e.stopPropagation()
       }
       document.getElementById('search').onclick = (e) => {
         this.$store.commit('onModeChange', 1)
@@ -109,7 +129,7 @@
     box-sizing: border-box;
     width: 100vw;
     height: 100vh;
-    font-family: -apple-system, BlinkMacSystemFont, Ubuntu, Microsoft YaHei Light, Microsoft YaHei;
+    font-family: applesystem, BlinkMacSystemFont, Ubuntu, Microsoft YaHei Light, Microsoft YaHei;
     letter-spacing: .2rem;
     overflow: hidden;
   }
@@ -152,11 +172,18 @@
   }
 
   .display {
-    opacity: 1;
+    opacity: 1 !important;
+    z-index: 4 !important;
+  }
+
+  .display-opacity-not-full {
+    opacity: .9 !important;
+    z-index: 4 !important;
   }
 
   .hidden {
-    opacity: 0;
+    opacity: 0 !important;
+    z-index: -1 !important;
   }
 
   .icon {

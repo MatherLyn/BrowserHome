@@ -42,5 +42,6 @@
     font-size: 4rem;
     font-weight: 100;
     margin-bottom: 3.6rem;
+    transition-duration: .25s;
   }
 </style>

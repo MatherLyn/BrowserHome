@@ -4,6 +4,7 @@
 
 <script>
   export default {
+    name: 'Snow',
     data () {
       return {
         canvas: {},
@@ -23,7 +24,7 @@
       },
       createSnow () {
         let now = new Date();
-        if (now - this.lastCreateTime > this.snows.length - now.getMinutes() && this.snows.length < 120) {
+        if (now - this.lastCreateTime > this.snows.length - now.getMinutes() && this.snows.length < 200) {
           const radius = Math.random() * 5 + 2
           let snow = new this.SnowBall(radius)
           snow.x = Math.random() * this.canvas.width + 1
@@ -33,18 +34,24 @@
         }
       },
       drawFrame () {
-        let animation = requestAnimationFrame(this.drawFrame)
+        window.winterSkin = requestAnimationFrame(this.drawFrame)
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height)
         this.createSnow()
         this.snows.forEach(this.snowMove)
+      },
+      canvasResize () {
+        const width = window.innerWidth
+        const height = window.innerHeight
+        this.canvas.width = width
+        this.canvas.height = height
       }
     },
-    mounted() {
-      const width = window.innerWidth
-      const height = window.innerHeight
+    mounted () {
+      console.log('mounted')
+    },
+    activated () {
+      console.log('activated')
       this.canvas = document.getElementById('winterSkin')
-      this.canvas.width = width
-      this.canvas.height = height
       this.context = this.canvas.getContext('2d')
       this.SnowBall = class SnowBall {
         constructor (radius) {
@@ -66,7 +73,18 @@
         }
       }
       this.drawFrame()
-
+      this.canvasResize()
+      const oldOnResize = window.onresize
+      // recalculate the size of the canvas
+      window.onresize = () => {
+        if (oldOnResize) oldOnResize()
+        this.canvasResize()
+      }
     },
+    deactivated () {
+      console.log('deactivated')
+      cancelAnimationFrame(window.winterSkin)
+      webkitCancelAnimationFrame(window.winterSkin)
+    }
   }
 </script>
