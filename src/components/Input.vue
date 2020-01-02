@@ -35,7 +35,6 @@
     text-align: center;
     transition-duration: .25s;
     font-family: -apple-system, BlinkMacSystemFont, Ubuntu, Microsoft YaHei;
-    margin-bottom: 30rem;
   }
 
   .input::placeholder {

@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <p class="motto" :class="{ 'display': $store.state.mode == 1, 'hidden': $store.state.mode != 1 }">{{ motto }}</p>
+  <div class="motto" :class="{ 'display': $store.state.mode == 1, 'hidden': $store.state.mode != 1 }">
+    <p>{{ motto }}</p>
   </div>
 </template>
 
@@ -8,7 +8,7 @@
   export default {
     data () {
       return {
-        motto: '曾经沧海难为水，除却巫山不是云。'
+        motto: '曾经沧海难为水，除却巫山不是云'
       }
     },
     methods: {
@@ -26,6 +26,9 @@
     font-family: -apple-system, BlinkMacSystemFont, Ubuntu, Microsoft YaHei;
     color: #fff;
     transition-duration: .25s;
+    text-align: center;
+    position: absolute;
+    bottom: 10rem;
   }
 
   .motto:hover {

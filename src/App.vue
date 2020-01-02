@@ -1,15 +1,15 @@
 <template>
   <div id="app">
-    <Timer />
-    <Input />
-    <Motto />
+    <Main />
+    <BGContainer />
+    <Snow />
   </div>
 </template>
 
 <script>
-  import Input from '@/components/Input'
-  import Timer from '@/components/Timer'
-  import Motto from '@/components/Motto'
+  import Main from './views/Main'
+  import BGContainer from './views/BGContainer'
+  import Snow from './views/Snow'
   export default {
     data () {
       return {
@@ -36,6 +36,8 @@
       // Esc键：切换到 0 状态（观赏状态）
       // 回车键：切换到 1 状态（输入状态）
       // 空格键：切换到 2 状态（功能状态）
+      // 点击右上角个人按钮：切换到3状态（定制状态）
+      // 点击右上角设置按钮：切换到4状态（设置状态）
       document.onkeydown = (e) => {
         switch (this.$store.state.mode) {
           case 0: {
@@ -86,9 +88,9 @@
       }
     },
     components: {
-      Input,
-      Timer,
-      Motto
+      Main,
+      BGContainer,
+      Snow
     }
   }
 </script>
@@ -107,18 +109,23 @@
     box-sizing: border-box;
     width: 100vw;
     height: 100vh;
-    padding-top: 8rem;
     font-family: -apple-system, BlinkMacSystemFont, Ubuntu, Microsoft YaHei Light, Microsoft YaHei;
     letter-spacing: .2rem;
     overflow: hidden;
   }
 
-  #app {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
+  canvas {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
     z-index: 2;
+    top: 0;
+    left: 0;
+  }
+
+  #app {
+    width: 100vw;
+    height: 100vh;
   }
 
   #container {
@@ -150,5 +157,19 @@
 
   .hidden {
     opacity: 0;
+  }
+
+  .icon {
+    position: fixed;
+    top: 3.8rem;
+    width: 2.2rem;
+    height: 2.2rem;
+    opacity: .8;
+    transition-duration: .25s;
+  }
+
+  .icon:hover {
+    opacity: 1;
+    cursor: pointer;
   }
 </style>
