@@ -23,7 +23,7 @@
       },
       createSnow () {
         let now = new Date();
-        if (now - this.lastCreateTime > this.snows.length - now.getMinutes() && this.snows.length < 1000) {
+        if (now - this.lastCreateTime > this.snows.length - now.getMinutes() && this.snows.length < 120) {
           const radius = Math.random() * 5 + 2
           let snow = new this.SnowBall(radius)
           snow.x = Math.random() * this.canvas.width + 1
@@ -70,9 +70,3 @@
     },
   }
 </script>
-
-<style scoped>
-  .snow {
-    
-  }
-</style>
