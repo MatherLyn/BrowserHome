@@ -5,7 +5,11 @@
         <p class="form-title">{{ flag ? '设置' : '个人' }}</p>
       </el-form-item>
       <el-form-item label="冬日皮肤" v-if="flag">
-        <el-switch v-model="form.winterSkin" @click.native="EnableWinterSkin"></el-switch>
+        <el-switch
+          v-model="enableWinterSkin"
+          @click.native="saveToLocalStorage"
+          :active-value="true"
+          :inactive-value="false"></el-switch>
       </el-form-item>
     </el-form>
   </div>
@@ -19,23 +23,25 @@
     ],
     data () {
       return {
-        form: {
-          winterSkin: true
-        }
+        enableWinterSkin: true
       }
     },
     methods: {
-      EnableWinterSkin () {
-        this.$store.state.winterSkin = this.form.winterSkin
+      saveToLocalStorage () {
+        this.$store.state.enableWinterSkin = this.enableWinterSkin
+        console.log(this.$store.state.enableWinterSkin)
+        localStorage.setItem('enableWinterSkin', this.enableWinterSkin)
       }
     },
     mounted() {
+      this.enableWinterSkin = this.$store.state.enableWinterSkin
       // flag: 0表示个人信息，1表示设置
       switch (this.flag) {
         case 0: {
           break
         }
         case 1: {
+          
           break
         }
       }

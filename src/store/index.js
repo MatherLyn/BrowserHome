@@ -12,7 +12,7 @@ export default new Vuex.Store({
     // 点击右上角设置按钮：切换到4状态（设置状态）
     mode: 0,
     // 冬日下雪皮肤
-    winterSkin: true
+    enableWinterSkin: true
   },
   mutations: {
     onModeChange (state, target) {

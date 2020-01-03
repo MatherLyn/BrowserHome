@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <Main />
-    <BGContainer />
-    <keep-alive include="Snow">
-      <Snow v-if="$store.state.winterSkin" />
+    <Main /> <!--z-index: 3-->
+    <keep-alive include="Snow"> <!--z-index: 2-->
+      <Snow v-if="this.$store.state.enableWinterSkin" />
     </keep-alive>
+    <BGContainer /> <!--z-index: 1-->
   </div>
 </template>
 
@@ -95,22 +95,22 @@
           }
         }
       }
-      document.getElementById('mainBox').onclick = (e) => {
-        // if (this.$store.state.mode == 3 || this.$store.state.mode == 4) {
-        //   return
-        // }
-        this.$store.commit('onModeChange', 0)
-        e.stopPropagation()
-      }
       document.getElementById('search').onclick = (e) => {
         this.$store.commit('onModeChange', 1)
         e.stopPropagation()
       }
+      console.log(this.$store.state)
     },
     components: {
       Main,
       BGContainer,
       Snow
+    },
+    beforeMount () {
+      const enableWinterSkin = localStorage.getItem('enableWinterSkin')
+      if (enableWinterSkin !== null) {
+        this.$store.state.enableWinterSkin = JSON.parse(enableWinterSkin)
+      }
     }
   }
 </script>
@@ -183,7 +183,7 @@
 
   .hidden {
     opacity: 0 !important;
-    z-index: -1 !important;
+    z-index: 3 !important;
   }
 
   .icon {
