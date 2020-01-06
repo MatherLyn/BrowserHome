@@ -8,14 +8,21 @@
   export default {
     data () {
       return {
-        motto: '曾经沧海难为水，除却巫山不是云'
+        motto: '可能是网络原因，一时半会儿想不到有什么好句子喔……'
       }
     },
     methods: {
 
     },
     mounted () {
-      
+      this.$axios.get('https://v1.hitokoto.cn')
+      .then(res => {
+        console.log(res)
+        const resData = res.data
+        if (res.status == 200) {
+          this.motto = `${resData.hitokoto} —— ${resData.from}`
+        }
+      })
     }
   }
 </script>

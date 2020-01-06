@@ -11,11 +11,21 @@ export default new Vuex.Store({
     // 点击右上角个人按钮：切换到3状态（定制状态）
     // 点击右上角设置按钮：切换到4状态（设置状态）
     mode: 0,
-    // 冬日下雪皮肤
+    // 背景图片设置
+    backgroundImageSet: [
+      require('../assets/bg-forest-1.jpg'),
+      require('../assets/bg-forest-2.jpg'),
+      require('../assets/bg-grass.jpg'),
+      require('../assets/bg-lake-1.jpg'),
+      require('../assets/bg-milk-sea.jpg'),
+      require('../assets/bg-snow.jpg')
+    ],
+    backgroundImageNumber: 0,
+    // 冬日下雪装饰
     enableWinterSkin: true
   },
   mutations: {
-    onModeChange (state, target) {
+    changeMode (state, target) {
       state.mode = target
       switch (target) {
         case 0: {
@@ -42,6 +52,10 @@ export default new Vuex.Store({
           break
         }
       }
+    },
+    changeBackground (state, target) {
+      state.backgroundImageNumber = target
+      localStorage.setItem('backgroundImageNumber', target)
     }
   },
   actions: {

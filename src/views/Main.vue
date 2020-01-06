@@ -1,8 +1,8 @@
 <template>
   <div class="main" id="main">
-    <Mainbox @click.native.self.stop="changeMode(0)" /> <!--z-index: 3 4-->
-    <Profile class="form" :class="{ 'display-opacity-not-full' : $store.state.mode === 3 }" @click.native.self="changeMode(0)" /> <!--z-index: 3 4-->
-    <Settings class="form" :class="{ 'display-opacity-not-full' : $store.state.mode === 4 }" @click.native.self="changeMode(0)" /> <!--z-index: 3 4-->
+    <Mainbox @click.native.self.stop="$store.commit('changeMode', 0)" /> <!--z-index: 3 4-->
+    <Profile class="form" :class="{ 'display-opacity-not-full' : $store.state.mode === 3 }" @click.native.self="$store.commit('changeMode', 0)" /> <!--z-index: 3 4-->
+    <Settings class="form" :class="{ 'display-opacity-not-full' : $store.state.mode === 4 }" @click.native.self="$store.commit('changeMode', 0)" /> <!--z-index: 3 4-->
   </div>
 </template>
 
@@ -17,8 +17,7 @@
       }
     },
     methods: {
-      changeMode (target) {
-      }
+
     },
     components: {
       Mainbox,

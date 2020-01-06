@@ -4,8 +4,8 @@
     <Input />
     <Motto />
     <Copyright />
-    <ProfileBtn @click.native="changeMode(3)" />
-    <SettingsBtn @click.native="changeMode(4)" />
+    <ProfileBtn @click.native="$store.commit('changeMode', 3)" />
+    <SettingsBtn @click.native="$store.commit('changeMode', 4)" />
   </div>
 </template>
 

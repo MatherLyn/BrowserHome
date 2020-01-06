@@ -15,12 +15,7 @@
   export default {
     data () {
       return {
-        imageSet: [
-          {
-            name: '',
-            src: './assets/bg_winter_2.jpg'
-          }
-        ]
+
       }
     },
     methods: {
@@ -43,13 +38,13 @@
             // Enter进入1
             // 空格进入2
             if (e.keyCode == 27) {
-              this.$store.commit('onModeChange', 0)
+              this.$store.commit('changeMode', 0)
             }
             if (e.keyCode == 13) {
-              this.$store.commit('onModeChange', 1)
+              this.$store.commit('changeMode', 1)
             }
             if (e.keyCode == 32) {
-              this.$store.commit('onModeChange', 2)
+              this.$store.commit('changeMode', 2)
             }
             break
           }
@@ -59,7 +54,7 @@
             // Enter应该跳转搜索
             // 空格不应该设置功能（要输入内容的）
             if (e.keyCode == 27) {
-              this.$store.commit('onModeChange', 0)
+              this.$store.commit('changeMode', 0)
             }
             if (e.keyCode == 13) {
               // 跳转搜索
@@ -69,13 +64,13 @@
           case 2: {
             // 功能状态还没想好
             if (e.keyCode == 27) {
-              this.$store.commit('onModeChange', 0)
-                          }
+              this.$store.commit('changeMode', 0)
+            }
             if (e.keyCode == 13) {
-              this.$store.commit('onModeChange', 1)
+              this.$store.commit('changeMode', 1)
             }
             if (e.keyCode == 32) {
-              this.$store.commit('onModeChange', 2)
+              this.$store.commit('changeMode', 2)
             }
             break
           }
@@ -83,23 +78,28 @@
             // 定制状态
             // Esc退出到0
             if (e.keyCode == 27) {
-              this.$store.commit('onModeChange', 0)
+              this.$store.commit('changeMode', 0)
             }
           }
           case 4: {
             // 设置状态
             // Esc退出到0
             if (e.keyCode == 27) {
-              this.$store.commit('onModeChange', 0)
+              this.$store.commit('changeMode', 0)
             }
           }
         }
       }
-      document.getElementById('search').onclick = (e) => {
-        this.$store.commit('onModeChange', 1)
-        e.stopPropagation()
+      // 向后端请求图片数组
+      // 将当前背景图片存入localStorage
+      const backgroundNumber = localStorage.getItem('backgroundImageNumber')
+      if (backgroundNumber !== null) {
+        this.$store.commit('changeBackground', backgroundNumber)
+      } else {
+        localStorage.setItem('backgroundImageNumber', 0)
       }
-      console.log(this.$store.state)
+
+      // 将当前
     },
     components: {
       Main,
@@ -148,21 +148,6 @@
     height: 100vh;
   }
 
-  #container {
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    background-image: url('./assets/bg_winter_2.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    transition-duration: .25s;
-    overflow: hidden;
-  }
-
   .blur {
     filter: blur(.1rem);
     -webkit-filter: blur(.1rem);
@@ -198,5 +183,10 @@
   .icon:hover {
     opacity: 1;
     cursor: pointer;
+  }
+
+  .submit-button {
+    width: 100% !important;
+    margin-top: 2rem !important;
   }
 </style>

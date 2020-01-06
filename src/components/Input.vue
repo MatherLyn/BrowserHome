@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input id="search" type="text" class="input" placeholder="Search" v-model="search"/>
+    <input id="search" type="text" class="input" placeholder="Search" v-model="search" @click.stop="$store.commit('changeMode', 1)"/>
   </div>
 </template>
 
