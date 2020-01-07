@@ -41,34 +41,105 @@
 
       <!-- 登录 -->
       <div v-if="flag === 2">
-        <el-form-item label="用户名">
+        <el-form-item>
+          <label for="loginUsername">用户名</label>
           <el-input
             placeholder="请输入用户名"
             v-model="login.username"
-            clearable>
+            clearable
+            name="loginUsername"
+            prefix-icon="el-icon-user">
           </el-input>
         </el-form-item>
-        <el-form-item label="密码">
-          <a href="javascript: void(0)" style="float: right;">忘记密码</a>
+        <el-form-item>
+          <label for="loginPassword">密码</label>
+          <a href="javascript: void(0)" style="float: right;" @click="$store.commit('changeMode', 7)">忘记密码</a>
           <el-input
             placeholder="请输入密码"
             v-model="login.password"
-            show-password>
+            show-password
+            name="loginPassword"
+            prefix-icon="el-icon-lock">
           </el-input>
         </el-form-item>
-        <el-button type="primary" class="submit-button">登录</el-button>
-          <a href="javascript: void(0)">注册一个账号</a>
+        <el-form-item>
+          <el-button type="primary" class="submit-button">登录</el-button>
+        </el-form-item>
+        <a href="javascript: void(0)" @click="$store.commit('changeMode', 6)">注册一个账号</a>
       </div>
 
       <!-- 注册 -->
-      <div v-if="flag === 3"></div>
+      <div v-if="flag === 3">
+        <el-form-item>
+          <label for="registerUsername">用户名</label>
+          <el-input
+            placeholder="请输入用户名"
+            v-model="register.username"
+            clearable
+            name="registerUsername"
+            prefix-icon="el-icon-user">
+          </el-input>
+        </el-form-item>
+        <el-form-item>
+          <label for="registerEmail">密保邮箱</label>
+          <el-input
+            placeholder="请输入密保邮箱"
+            v-model="register.email"
+            clearable
+            name="registerEmail"
+            prefix-icon="el-icon-message">
+          </el-input>
+        </el-form-item>
+        <el-form-item>
+          <label for="registerPassword">密码</label>
+          <el-input
+            placeholder="请输入密码"
+            v-model="register.password"
+            show-password
+            name="registerPassword"
+            prefix-icon="el-icon-lock">
+          </el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" class="submit-button">注册</el-button>
+        </el-form-item>
+        <a href="javascript: void(0)" @click="$store.commit('changeMode', 5)">返回登录</a>
+      </div>
 
 
       <!-- 忘记密码 -->
-      <div v-if="flag === 4"></div>
+      <div v-if="flag === 4">
+        <el-form-item>
+          <label for="forgetPasswordEmail">密保邮箱</label>
+          <el-input
+            placeholder="请输入注册时填入的邮箱地址"
+            v-model="forgetPassword.email"
+            clearable
+            name="forgetPasswordEmail"
+            prefix-icon="el-icon-message">
+          </el-input>
+        </el-form-item>
+        <el-form-item>
+          <label for="verifyingCode">验证码</label>
+          <el-input
+            placeholder="请输入验证码"
+            v-model="forgetPassword.verifyingCode"
+            clearable
+            name="verifyingCode"
+            prefix-icon="el-icon-unlock">
+            <el-button slot="append" icon="el-icon-thumb" class="send-code">发送验证码</el-button>
+          </el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" class="submit-button">验证</el-button>
+        </el-form-item>
+        <a href="javascript: void(0)" @click="$store.commit('changeMode', 5)">返回登录</a>
+      </div>
 
       <!-- 个人中心 -->
-      <div v-if="!flag"></div>
+      <div v-if="!flag">
+
+      </div>
 
     </el-form>
   </div>
@@ -82,32 +153,57 @@
     ],
     data () {
       return {
-        register: {
-          username: '',
-          email: '',
-          password: ''
-        },
-        login: {
-          username: '',
-          password: ''
-        },
-        profile: {
+        // register: {
+        //   username: '',
+        //   email: '',
+        //   password: ''
+        // },
+        // login: {
+        //   username: '',
+        //   password: ''
+        // },
+        // forgetPassword: {
+        //   email: '',
+        //   verifyingCode: ''
+        // },
+        // profile: {
 
-        }
+        // }
       }
     },
     methods: {
       
     },
-    mounted() {
-      // flag: 0表示个人信息，1表示设置
+    beforeMount() {
+      // flag: 0表示个人中心，1表示设置，2表示登录，3表示注册，4表示忘记密码
       switch (this.flag) {
         case 0: {
-
+          this.profile = {}
           break
         }
         case 1: {
-          
+          break
+        }
+        case 2: {
+          this.login = {
+            username: '',
+            password: ''
+          }
+          break
+        }
+        case 3: {
+          this.register = {
+            username: '',
+            email: '',
+            password: ''
+          }
+          break
+        }
+        case 4: {
+          this.forgetPassword = {
+            email: '',
+            verifyingCode: ''
+          }
           break
         }
       }
@@ -152,6 +248,7 @@
   .skin-radio {
     display: block !important;
     margin-bottom: 1rem !important;
+    float: none;
   }
 
   .image-item {

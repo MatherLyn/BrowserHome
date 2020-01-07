@@ -147,6 +147,20 @@
     left: 0;
   }
 
+  label {
+    float: left;
+    color: #666;
+  }
+
+  a {
+    display: block;
+    color: #888;
+    font-size: 1.4rem;
+    line-height: 4rem;
+    height: 4rem;
+    text-align: center;
+  }
+
   #app {
     width: 100vw;
     height: 100vh;

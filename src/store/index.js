@@ -8,7 +8,10 @@ export default new Vuex.Store({
     // Esc键：切换到 0 状态（观赏状态）
     // 回车键：切换到 1 状态（输入状态）
     // 空格键：切换到 2 状态（功能状态）
-    // 点击右上角个人按钮：切换到3状态（定制状态）
+    // 点击右上角个人按钮：已登录则切换到3状态（定制状态）
+    // 未登录则切换到5状态（登录状态）
+    // 注册则切换到6状态（注册状态）
+    // 忘记密码则切换到7状态（找回密码状态）
     // 点击右上角设置按钮：切换到4状态（设置状态）
     mode: 0,
     // 背景图片设置
@@ -84,6 +87,18 @@ export default new Vuex.Store({
         }
         case 4: {
           console.log('切换到4')
+          break
+        }
+        case 5: {
+          console.log('切换到5')
+          break
+        }
+        case 6: {
+          console.log('切换到6')
+          break
+        }
+        case 7: {
+          console.log('切换到7')
           break
         }
       }

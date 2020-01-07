@@ -3,6 +3,9 @@
     <Mainbox @click.native.self.stop="$store.commit('changeMode', 0)" /> <!--z-index: 3 4-->
     <Profile class="form" :class="{ 'display-opacity-not-full' : $store.state.mode === 3 }" @click.native.self="$store.commit('changeMode', 0)" /> <!--z-index: 3 4-->
     <Settings class="form" :class="{ 'display-opacity-not-full' : $store.state.mode === 4 }" @click.native.self="$store.commit('changeMode', 0)" /> <!--z-index: 3 4-->
+    <Login class="form" :class="{ 'display-opacity-not-full' : $store.state.mode === 5 }" @click.native.self="$store.commit('changeMode', 0)" /> <!--z-index: 3 4-->
+    <Register class="form" :class="{ 'display-opacity-not-full' : $store.state.mode === 6 }" @click.native.self="$store.commit('changeMode', 0)" /> <!--z-index: 3 4-->
+    <ForgetPassword class="form" :class="{ 'display-opacity-not-full' : $store.state.mode === 7 }" @click.native.self="$store.commit('changeMode', 0)" /> <!--z-index: 3 4-->
   </main>
 </template>
 

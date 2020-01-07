@@ -1,10 +1,10 @@
 <template>
-  <div class="main-box" id="mainBox" :class="{ 'hidden' : $store.state.mode === 3 || $store.state.mode === 4 }">
+  <div class="main-box" id="mainBox" :class="{ 'hidden' : $store.state.mode >= 3 }">
     <Timer />
     <Input />
     <Motto />
     <Copyright />
-    <ProfileBtn @click.native="$store.commit('changeMode', 3)" />
+    <ProfileBtn @click.native="profileManagement" />
     <SettingsBtn @click.native="$store.commit('changeMode', 4)" />
   </div>
 </template>
@@ -23,7 +23,13 @@
       }
     },
     methods: {
-
+      profileManagement () {
+        if (this.$store.state.loggedin) {
+          this.$store.commit('changeMode', 3)
+        } else {
+          this.$store.commit('changeMode', 5)
+        }
+      }
     },
     components: {
       Input,
