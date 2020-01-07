@@ -189,6 +189,11 @@
     z-index: 3 !important;
   }
 
+  .my-disabled {
+    background-color: rgba(230, 230, 230, .8) !important;
+    color: #888 !important;
+  }
+
   .icon {
     position: fixed;
     top: 3.8rem;

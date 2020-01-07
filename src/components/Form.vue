@@ -63,7 +63,7 @@
           </el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" class="submit-button">登录</el-button>
+          <el-button type="primary" class="submit-button" @click="doLogin">登录</el-button>
         </el-form-item>
         <a href="javascript: void(0)" @click="$store.commit('changeMode', 6)">注册一个账号</a>
       </div>
@@ -101,7 +101,7 @@
           </el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" class="submit-button">注册</el-button>
+          <el-button type="primary" class="submit-button" @click="doRegister">注册</el-button>
         </el-form-item>
         <a href="javascript: void(0)" @click="$store.commit('changeMode', 5)">返回登录</a>
       </div>
@@ -121,17 +121,27 @@
         </el-form-item>
         <el-form-item>
           <label for="verifyingCode">验证码</label>
-          <el-input
-            placeholder="请输入验证码"
-            v-model="forgetPassword.verifyingCode"
-            clearable
-            name="verifyingCode"
-            prefix-icon="el-icon-unlock">
-            <el-button slot="append" icon="el-icon-thumb" class="send-code">发送验证码</el-button>
-          </el-input>
+          <div style="width: 100%; display: flex;">
+            <el-input
+              placeholder="请输入验证码"
+              v-model="forgetPassword.verifyingCode"
+              clearable
+              name="verifyingCode"
+              prefix-icon="el-icon-unlock"
+              style="margin-right: 1rem; flex: 1;">
+            </el-input>
+            <el-button
+              icon="el-icon-thumb"
+              id="sendCode"
+              :disabled="!forgetPassword.active"
+              :class="{'my-disabled' : !forgetPassword.active}"
+              @click="doSendCode">
+              {{ forgetPassword.active ? '发送验证码' : `${forgetPassword.count}秒后再次发送` }}
+            </el-button>
+          </div>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" class="submit-button">验证</el-button>
+          <el-button type="primary" class="submit-button" @click="doFindPassword">验证</el-button>
         </el-form-item>
         <a href="javascript: void(0)" @click="$store.commit('changeMode', 5)">返回登录</a>
       </div>
@@ -153,61 +163,87 @@
     ],
     data () {
       return {
-        // register: {
-        //   username: '',
-        //   email: '',
-        //   password: ''
-        // },
-        // login: {
-        //   username: '',
-        //   password: ''
-        // },
-        // forgetPassword: {
-        //   email: '',
-        //   verifyingCode: ''
-        // },
-        // profile: {
+        register: {
+          username: '',
+          email: '',
+          password: ''
+        },
+        login: {
+          username: '',
+          password: ''
+        },
+        forgetPassword: {
+          active: true,
+          count: 30,
+          findPassword: {
+            email: '',
+            verifyingCode: ''
+          }
+        },
+        profile: {
 
-        // }
+        }
       }
     },
     methods: {
-      
+      doLogin () {
+
+      },
+      doRegister () {
+
+      },
+      doSendCode () {
+        // 向服务端请求发送邮件
+        this.forgetPassword.active = false
+        this.forgetPassword.count = 30
+        const sendCodeCD = setInterval(() => {
+          this.forgetPassword.count--
+          if (!this.forgetPassword.count) {
+            clearInterval(sendCodeCD)
+            this.forgetPassword.active = true
+          }
+        }, 1000)
+      },
+      doFindPassword () {
+
+      }
     },
     beforeMount() {
       // flag: 0表示个人中心，1表示设置，2表示登录，3表示注册，4表示忘记密码
       switch (this.flag) {
         case 0: {
-          this.profile = {}
+          this.register = undefined
+          this.login = undefined
+          this.forgetPassword = undefined
           break
         }
         case 1: {
+          this.profile = undefined
+          this.login = undefined
+          this.register = undefined
+          this.forgetPassword = undefined
           break
         }
         case 2: {
-          this.login = {
-            username: '',
-            password: ''
-          }
+          this.profile = undefined
+          this.register = undefined
+          this.forgetPassword = undefined
           break
         }
         case 3: {
-          this.register = {
-            username: '',
-            email: '',
-            password: ''
-          }
+          this.profile = undefined
+          this.login = undefined
+          this.forgetPassword = undefined
           break
         }
         case 4: {
-          this.forgetPassword = {
-            email: '',
-            verifyingCode: ''
-          }
+          this.profile = undefined
+          this.login = undefined
+          this.register = undefined
           break
         }
       }
-
+      
       console.log(!this.flag && !this.$store.state.loggedin && !this.register)
     },
   }
@@ -259,5 +295,15 @@
 
   .image-item:hover {
     cursor: pointer;
+  }
+
+  #sendCode {
+    width: 16rem;
+    background-color: #561CF5;
+    color: #fff;
+  }
+
+  #sendCode:hover {
+    background-color: #7849f7;
   }
 </style>
