@@ -34,6 +34,7 @@
             :title="item.name"
             :src="item.src"
             class="image-item"
+            :class="{ 'active-item': index === $store.state.backgroundImageNumber }"
             @click="$store.commit('changeBackground', index)">
           </el-image>
         </el-form-item>
@@ -295,6 +296,32 @@
 
   .image-item:hover {
     cursor: pointer;
+  }
+
+  .active-item::before {
+    content: '';
+    position: absolute;
+    top: .5rem;
+    left: .5rem;
+    display: block;
+    width: 10rem;
+    height: 6.18rem;
+    background-color: #333;
+    opacity: .3;
+  }
+
+  .active-item::after {
+    content: '';
+    position: absolute;
+    top: 2.5rem;
+    left: 4rem;
+    display: block;
+    box-sizing: border-box;
+    width: 3rem;
+    height: 1.5rem;
+    border-left: .2rem solid #fff;
+    border-bottom: .2rem solid #fff;
+    transform: rotate(-45deg);
   }
 
   #sendCode {
