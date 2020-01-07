@@ -1,8 +1,8 @@
 <template>
-  <div class="container" :class="{ 'display': $store.state.mode == 1, 'hidden': $store.state.mode != 1 }">
+  <footer class="container" :class="{ 'display': $store.state.mode == 1, 'hidden': $store.state.mode != 1 }">
     <img src="../assets/cpright.png" alt="" class="cpright-img">
     <span class="cpright-text">Copy right 木木日常 2019</span>
-  </div>
+  </footer>
 </template>
 
 <script>

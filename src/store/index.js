@@ -33,6 +33,7 @@ export default new Vuex.Store({
       }
     ],
     backgroundImageNumber: 0,
+
     // 动画装饰设置
     skinSet: [
       {
@@ -49,7 +50,14 @@ export default new Vuex.Store({
       }
     ],
     skinNumber: 0,
-    // 
+
+    // 登陆状态
+    loggedin: false,
+    userInfo: {
+      username: '',
+      email: '',
+      password: '',
+    }
   },
   mutations: {
     changeMode (state, target) {

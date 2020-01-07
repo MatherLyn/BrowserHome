@@ -1,13 +1,18 @@
 <template>
   <div>
     <el-form class="my-form" label-position="top">
+      <!-- 标题 -->
       <el-form-item>
-        <span class="form-title">{{ flag ? '设置' : '个人' }}</span>
+        <span class="form-title" v-if="!flag">个人中心</span>
+        <span class="form-title" v-if="flag === 1">设置</span>
+        <span class="form-title" v-if="flag === 2">登录</span>
+        <span class="form-title" v-if="flag === 3">注册</span>
+        <span class="form-title" v-if="flag === 4">忘记密码</span>
         <i class="el-icon-close close" @click="$store.commit('changeMode', 0)"></i>
       </el-form-item>
 
       <!-- 设置 -->
-      <div class="settings-form" v-if="flag">
+      <div v-if="flag === 1">
         <el-form-item label="动画装饰（可能会对性能产生影响）">
           <el-radio-group v-model="$store.state.skinNumber">
             <el-radio
@@ -34,24 +39,36 @@
         </el-form-item>
       </div>
 
-      <!-- 个人 -->
-      <div class="profile-form" v-if="!flag">
+      <!-- 登录 -->
+      <div v-if="flag === 2">
         <el-form-item label="用户名">
           <el-input
             placeholder="请输入用户名"
-            v-model="userInfo.username"
-            clearable="">
+            v-model="login.username"
+            clearable>
           </el-input>
         </el-form-item>
         <el-form-item label="密码">
+          <a href="javascript: void(0)" style="float: right;">忘记密码</a>
           <el-input
             placeholder="请输入密码"
-            v-model="userInfo.password"
+            v-model="login.password"
             show-password>
           </el-input>
         </el-form-item>
-        <el-button type="primary" class="submit-button">提交</el-button>
+        <el-button type="primary" class="submit-button">登录</el-button>
+          <a href="javascript: void(0)">注册一个账号</a>
       </div>
+
+      <!-- 注册 -->
+      <div v-if="flag === 3"></div>
+
+
+      <!-- 忘记密码 -->
+      <div v-if="flag === 4"></div>
+
+      <!-- 个人中心 -->
+      <div v-if="!flag"></div>
 
     </el-form>
   </div>
@@ -65,9 +82,17 @@
     ],
     data () {
       return {
-        userInfo: {
+        register: {
           username: '',
-          password: '',
+          email: '',
+          password: ''
+        },
+        login: {
+          username: '',
+          password: ''
+        },
+        profile: {
+
         }
       }
     },
@@ -86,6 +111,8 @@
           break
         }
       }
+
+      console.log(!this.flag && !this.$store.state.loggedin && !this.register)
     },
   }
 </script>
