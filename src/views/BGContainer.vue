@@ -2,7 +2,7 @@
   <div
     id="container"
     :class="{ 'blur': $store.state.mode === 1 || $store.state.mode === 3 || $store.state.mode === 4 }"
-    :style="{ backgroundImage: `url(${$store.state.backgroundImageSet[$store.state.backgroundImageNumber]})`}"></div>
+    :style="{ backgroundImage: `url(${$store.state.backgroundImageSet[$store.state.backgroundImageNumber].src})`}"></div>
 </template>
 
 <script>

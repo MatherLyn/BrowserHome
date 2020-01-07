@@ -2,7 +2,7 @@
   <div id="app">
     <Main /> <!--z-index: 3-->
     <keep-alive include="Snow"> <!--z-index: 2-->
-      <Snow v-if="this.$store.state.enableWinterSkin" />
+      <Snow v-if="this.$store.state.skinNumber === 1" />
     </keep-alive>
     <BGContainer /> <!--z-index: 1-->
   </div>
@@ -90,6 +90,15 @@
           }
         }
       }
+      localStorage.clear()
+      // 将当前选择的动画装饰存入localStorage
+      const skinNumber = localStorage.getItem('skinNumber')
+      if (skinNumber !== null) {
+        this.$store.commit('changeSkin', skinNumber)
+      } else {
+        localStorage.setItem('skinNumber', 0)
+      }
+
       // 向后端请求图片数组
       // 将当前背景图片存入localStorage
       const backgroundNumber = localStorage.getItem('backgroundImageNumber')
@@ -98,8 +107,6 @@
       } else {
         localStorage.setItem('backgroundImageNumber', 0)
       }
-
-      // 将当前
     },
     components: {
       Main,
@@ -107,10 +114,7 @@
       Snow
     },
     beforeMount () {
-      const enableWinterSkin = localStorage.getItem('enableWinterSkin')
-      if (enableWinterSkin !== null) {
-        this.$store.state.enableWinterSkin = JSON.parse(enableWinterSkin)
-      }
+      
     }
   }
 </script>

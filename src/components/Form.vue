@@ -8,37 +8,26 @@
 
       <!-- 设置 -->
       <div class="settings-form" v-if="flag">
-        <el-form-item label="冬日装饰">
-          <el-switch
-            v-model="settings.enableWinterSkin"
-            @click.native="chooseThisSkin(0)"
-            :active-value="true"
-            :inactive-value="false">
-          </el-switch>
+        <el-form-item label="动画装饰（可能会对性能产生影响）">
+          <el-radio-group v-model="$store.state.skinNumber">
+            <el-radio
+              v-for="(item, index) in $store.state.skinSet"
+              :key="index"
+              :label="index"
+              class="skin-radio"
+              :disabled="index === 2 || index === 3"
+              @change="$store.commit('changeSkin', index)">
+              {{ item.name }}
+            </el-radio>
+          </el-radio-group>
         </el-form-item>
-        <el-form-item label="雨夜装饰（即将到来）">
-          <el-switch
-            v-model="settings.enableRainSkin"
-            @click.native="chooseThisSkin(1)"
-            :active-value="true"
-            :inactive-value="false"
-            disabled>
-          </el-switch>
-        </el-form-item>
-        <el-form-item label="暖阳装饰（即将到来）">
-          <el-switch
-            v-model="settings.enableSunSkin"
-            @click.native="chooseThisSkin(2)"
-            :active-value="true"
-            :inactive-value="false"
-            disabled>
-          </el-switch>
-        </el-form-item>
+
         <el-form-item label="背景图片">
           <el-image
             v-for="(item, index) in $store.state.backgroundImageSet"
             :key="index"
-            :src="item"
+            :title="item.name"
+            :src="item.src"
             class="image-item"
             @click="$store.commit('changeBackground', index)">
           </el-image>
@@ -79,31 +68,13 @@
         userInfo: {
           username: '',
           password: '',
-        },
-        settings: {
-          enableWinterSkin: true,
-          enableRainSkin: false,
-          enableSunSkin: false
         }
       }
     },
     methods: {
-      chooseThisSkin (skinNumber) {
-        // 应该跟图片一样，做成数组
-        switch (skinNumber) {
-          case 0: {
-            // winter skin
-            this.$store.state.enableWinterSkin = this.settings.enableWinterSkin
-            console.log(this.$store.state.enableWinterSkin)
-            localStorage.setItem('enableWinterSkin', this.settings.enableWinterSkin)
-          }
-
-        }
-
-      }
+      
     },
     mounted() {
-      this.settings.enableWinterSkin = this.$store.state.enableWinterSkin
       // flag: 0表示个人信息，1表示设置
       switch (this.flag) {
         case 0: {
@@ -149,6 +120,11 @@
   .close:hover {
     color: #7090FF;
     cursor: pointer;
+  }
+
+  .skin-radio {
+    display: block !important;
+    margin-bottom: 1rem !important;
   }
 
   .image-item {

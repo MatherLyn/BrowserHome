@@ -13,16 +13,43 @@ export default new Vuex.Store({
     mode: 0,
     // 背景图片设置
     backgroundImageSet: [
-      require('../assets/bg-forest-1.jpg'),
-      require('../assets/bg-forest-2.jpg'),
-      require('../assets/bg-grass.jpg'),
-      require('../assets/bg-lake-1.jpg'),
-      require('../assets/bg-milk-sea.jpg'),
-      require('../assets/bg-snow.jpg')
+      {
+        src: require('../assets/bg-forest-1.jpg')
+      },
+      {
+        src: require('../assets/bg-forest-2.jpg')
+      },
+      {
+        src: require('../assets/bg-grass.jpg')
+      },
+      {
+        src: require('../assets/bg-lake-1.jpg')
+      },
+      {
+        src: require('../assets/bg-milk-sea.jpg')
+      },
+      {
+        src: require('../assets/bg-snow.jpg')
+      }
     ],
     backgroundImageNumber: 0,
-    // 冬日下雪装饰
-    enableWinterSkin: true
+    // 动画装饰设置
+    skinSet: [
+      {
+        name: '不使用动画装饰'
+      },
+      {
+        name: '冬日装饰'
+      },
+      {
+        name: '雨夜装饰（即将到来）'
+      },
+      {
+        name: '暖阳装饰（即将到来）'
+      }
+    ],
+    skinNumber: 0,
+    // 
   },
   mutations: {
     changeMode (state, target) {
@@ -56,6 +83,10 @@ export default new Vuex.Store({
     changeBackground (state, target) {
       state.backgroundImageNumber = target
       localStorage.setItem('backgroundImageNumber', target)
+    },
+    changeSkin (state, target) {
+      state.skinNumber = target
+      localStorage.setItem('skinNumber', target)
     }
   },
   actions: {
