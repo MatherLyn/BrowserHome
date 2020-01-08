@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-form class="my-form" label-position="top">
+    <el-form class="my-form" label-position="top" :class="{ 'narrower' : flag != 1 }">
       <!-- 标题 -->
       <el-form-item>
         <span class="form-title" v-if="!flag">个人中心</span>
@@ -14,7 +14,7 @@
       <!-- 设置 -->
       <div v-if="flag === 1">
         <el-form-item label="动画装饰（可能会对性能产生影响）">
-          <el-radio-group v-model="$store.state.skinNumber">
+          <el-radio-group v-model="$store.state.skinNumber" text-color="#561CF5">
             <el-radio
               v-for="(item, index) in $store.state.skinSet"
               :key="index"
@@ -247,6 +247,9 @@
       
       console.log(!this.flag && !this.$store.state.loggedin && !this.register)
     },
+    mounted () {
+      
+    }
   }
 </script>
 
@@ -265,6 +268,10 @@
     padding: 4rem;
     background: #fff;
     border-radius: .4rem;
+  }
+
+  .narrower {
+    width: 42rem;
   }
 
   .form-title {
