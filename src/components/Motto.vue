@@ -29,13 +29,16 @@
 
 <style scoped>
   .motto {
+    position: absolute;
+    bottom: 10rem;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 1rem 2rem;
     font-size: 1.2rem;
     font-family: -apple-system, BlinkMacSystemFont, Ubuntu, Microsoft YaHei;
     color: #fff;
     transition-duration: .25s;
     text-align: center;
-    position: absolute;
-    bottom: 10rem;
   }
 
   .motto:hover {

@@ -340,4 +340,18 @@
   #sendCode:hover {
     background-color: #7849f7;
   }
+
+  @media screen and (max-width: 600px) {
+    .my-form {
+      width: 41rem;
+      padding: 2rem;
+    }
+  }
+
+  @media screen and (max-width: 400px) {
+    .my-form {
+      width: 36rem;
+      padding: 1.5rem;
+    }
+  }
 </style>

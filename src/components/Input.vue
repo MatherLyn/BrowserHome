@@ -55,6 +55,8 @@
     text-align: center;
     transition-duration: .25s;
     font-family: -apple-system, BlinkMacSystemFont, Ubuntu, Microsoft YaHei;
+    position: relative;
+    z-index: 4;
   }
 
   .search::placeholder {
@@ -103,5 +105,11 @@
 
   .search:focus::-webkit-search-placeholder {
     color: rgba(64, 64, 64, 0);
+  }
+
+  @media screen and (max-width: 420px) {
+    .input:hover .search {
+      width: 80vw;
+    }
   }
 </style>

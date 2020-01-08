@@ -142,6 +142,8 @@
     box-sizing: border-box;
     width: 100vw;
     height: 100vh;
+    min-width: 360px;
+    min-height: 600px;
     font-family: applesystem, BlinkMacSystemFont, Ubuntu, Microsoft YaHei Light, Microsoft YaHei;
     letter-spacing: .2rem;
     overflow: hidden;
@@ -171,8 +173,11 @@
   }
 
   #app {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
   }
 
   .blur {

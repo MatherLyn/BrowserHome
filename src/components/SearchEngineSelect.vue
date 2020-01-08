@@ -45,6 +45,7 @@
     transition-duration: .25s;
     background-color: rgb(240, 240, 240);
     opacity: .6;
+    z-index: 5;
   }
 
   .search-engine:hover {
