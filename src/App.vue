@@ -58,6 +58,7 @@
             }
             if (e.keyCode == 13) {
               // 跳转搜索
+              this.$store.commit('doSearch')
             }
             break
           }

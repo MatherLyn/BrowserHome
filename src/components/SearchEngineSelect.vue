@@ -1,22 +1,21 @@
 <template>
   <div class="search-engine" :class="{ 'engine-select' : $store.state.mode === 1 && $store.state.subMode === 1 }">
-    <div class="search-engine-select" :class="{ 'select' : $store.state.mode === 1 && $store.state.subMode === 1 }">
-      <div
+    <ul class="search-engine-select" :class="{ 'select' : $store.state.mode === 1 && $store.state.subMode === 1 }">
+      <li
         v-for="(item, index) in $store.state.searchEngineSet"
         :key="index"
         class="search-engine-options">
         <img :src="item.logo" :title="item.name" @click="$store.commit('changeSearchEngine',index)"/>
-      </div>
-    </div>
+      </li>
+    </ul>
     <img
       class="current-search-engine"
       :src="$store.state.searchEngineSet[$store.state.searchEngineNumber].logo"
       alt="搜索"
-      @click="$store.state.doSearch"
+      @click="$store.commit('doSearch')"
     />
     <div class="arrow" @click="$store.commit('changeSubMode', 1)"></div>
   </div>
-
 </template>
 
 <script>
@@ -27,7 +26,7 @@
       }
     },
     methods: {
-      
+
     },
     components: {
       
@@ -54,7 +53,7 @@
 
   .search-engine-select {
     position: relative;
-    width: 4.4rem;
+    width: 100%;
     height: 15rem;
     margin-top: -15rem;
     border-radius: 1.5rem;

@@ -91,28 +91,9 @@ export default new Vuex.Store({
       password: '',
     },
 
+    // input 的关键字
+    searchKeyword: ''
 
-    // 需要被复用的函数
-    // 要想办法把他们的this绑定在vuex上
-    doSearch () {
-      switch (1) {
-        case 0: {
-          break
-        }
-        case 1: {
-          break
-        }
-        case 2: {
-          break
-        }
-        case 3: {
-          break
-        }
-        case 4: {
-          break
-        }
-      }
-    }
   },
   mutations: {
     changeMode (state, target) {
@@ -176,6 +157,32 @@ export default new Vuex.Store({
       state.searchEngineNumber = target
       state.subMode = 0
       localStorage.setItem('searchEngineNumber', target)
+    },
+
+
+    // 需要被复用的函数
+    // 要想办法把他们的this绑定在vuex上
+    doSearch (state) {
+      state.searchKeyword = state.searchKeyword.trim()
+      console.log(state.searchKeyword)
+      switch (state.searchEngineNumber) {
+        case 0: {
+          location.href = `https://www.baidu.com/s?ie=utf-8&wd=${state.searchKeyword}`
+          break
+        }
+        case 1: {
+          break
+        }
+        case 2: {
+          break
+        }
+        case 3: {
+          break
+        }
+        case 4: {
+          break
+        }
+      }
     }
   },
   actions: {
