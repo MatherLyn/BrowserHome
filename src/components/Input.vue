@@ -1,11 +1,12 @@
 <template>
-  <div>
-    <input id="search" type="text" class="input" placeholder="Search" v-model="search" @click.stop="$store.commit('changeMode', 1)"/>
-
+  <div class="input">
+    <input id="search" type="text" class="search" placeholder="Search" v-model="searchKeyword" @click="$store.commit('changeMode', 1)"/>
+    <SearchEngineSelect :class="{ 'hidden' : $store.state.mode !== 1 }"/>
   </div>
 </template>
 
 <script>
+  import SearchEngineSelect from './SearchEngineSelect'
   export default {
     data () {
       return {
@@ -21,17 +22,24 @@
             // logo: require()
           }
         ],
-        search: ''
+        searchKeyword: ''
       }
     },
     methods: {
       
+    },
+    components: {
+      SearchEngineSelect
     }
   }
 </script>
 
 <style scoped>
   .input {
+    position: relative;
+  }
+
+  .search {
     box-sizing: border-box;
     width: 18rem;
     height: 4rem;
@@ -50,51 +58,51 @@
     font-family: -apple-system, BlinkMacSystemFont, Ubuntu, Microsoft YaHei;
   }
 
-  .input::placeholder {
+  .search::placeholder {
     color: #fff;
   }
 
-  .input::-moz-placeholder {
+  .search::-moz-placeholder {
     color: #fff;
   }
 
-  .input::-webkit-input-placeholder {
+  .search::-webkit-search-placeholder {
     color: #fff;
   }
 
-  .input:hover {
+  .input:hover .search {
     width: 40rem;
     background-color: rgba(255, 255, 255, .4);
     color: #666;
   }
 
-  .input:hover::placeholder {
+  .search:hover::placeholder {
     color: #666;
   }
 
-  .input:hover::-moz-placeholder {
+  .search:hover::-moz-placeholder {
     color: #666;
   }
 
-  .input:hover::-webkit-input-placeholder {
+  .search:hover::-webkit-search-placeholder {
     color: #666;
   }
   
-  .input:focus {
+  .search:focus {
     width: 40rem;
     background-color: rgba(255, 255, 255, .4);
     color: rgb(64, 64, 64);
   }
 
-  .input:focus::placeholder {
+  .search:focus::placeholder {
     color: rgba(64, 64, 64, 0);
   }
 
-  .input:focus::-moz-placeholder {
+  .search:focus::-moz-placeholder {
     color: rgba(64, 64, 64, 0);
   }
 
-  .input:focus::-webkit-input-placeholder {
+  .search:focus::-webkit-search-placeholder {
     color: rgba(64, 64, 64, 0);
   }
 </style>

@@ -90,7 +90,8 @@
           }
         }
       }
-      // 将当前选择的动画装饰存入localStorage
+
+      // 从localStorage读出保存的装饰编号
       const skinNumber = parseInt(localStorage.getItem('skinNumber'))
       if (skinNumber !== NaN) {
         this.$store.commit('changeSkin', skinNumber)
@@ -99,12 +100,20 @@
       }
 
       // 向后端请求图片数组
-      // 将当前背景图片存入localStorage
+      // 从localStorage读出保存的背景图片编号
       const backgroundNumber = parseInt(localStorage.getItem('backgroundImageNumber'))
       if (backgroundNumber !== NaN) {
         this.$store.commit('changeBackground', backgroundNumber)
       } else {
         localStorage.setItem('backgroundImageNumber', 0)
+      }
+
+      // 从localStorage读出保存的搜索引擎编号
+      const searchEngineNumber = parseInt(localStorage.getItem('searchEngineNumber'))
+      if (searchEngineNumber !== NaN) {
+        this.$store.commit('changeSearchEngine', searchEngineNumber)
+      } else {
+        localStorage.setItem('searchEngineNumber')
       }
     },
     components: {

@@ -1,5 +1,5 @@
 <template>
-  <div class="main-box" id="mainBox" :class="{ 'hidden' : $store.state.mode >= 3 }">
+  <div class="main-box" id="mainBox" :class="{ 'hidden' : $store.state.mode >= 3 && $store.state.mode <= 7 }">
     <Timer />
     <Input />
     <Motto />
