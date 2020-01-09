@@ -10,18 +10,7 @@
   export default {
     data () {
       return {
-        searchEngineSet: [
-          {
-            name: 'Baidu',
-            addr: 'www.baidu.com',
-            // logo: require()
-          },
-          {
-            name: 'Google',
-            addr: 'www.google.com',
-            // logo: require()
-          }
-        ]
+        
       }
     },
     methods: {

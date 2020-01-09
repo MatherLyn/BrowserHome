@@ -94,30 +94,28 @@
 
       // 从localStorage读出保存的装饰编号
       const skinNumber = parseInt(localStorage.getItem('skinNumber'))
-      if (skinNumber !== NaN) {
-        this.$store.commit('changeSkin', skinNumber)
+      if (isNaN(skinNumber)) {
+        this.$store.commit('changeSkin', 0)
       } else {
-        localStorage.setItem('skinNumber', 0)
+        this.$store.commit('changeSkin', skinNumber)
       }
 
       // 向后端请求图片数组
       // 从localStorage读出保存的背景图片编号
       const backgroundNumber = parseInt(localStorage.getItem('backgroundImageNumber'))
-      if (backgroundNumber !== NaN) {
-        this.$store.commit('changeBackground', backgroundNumber)
+      if (isNaN(backgroundNumber)) {
+        this.$store.commit('changeBackground', 0)
       } else {
-        localStorage.setItem('backgroundImageNumber', 0)
+        this.$store.commit('changeBackground', backgroundNumber)
       }
 
       // 从localStorage读出保存的搜索引擎编号
       const searchEngineNumber = parseInt(localStorage.getItem('searchEngineNumber'))
-      if (searchEngineNumber !== NaN) {
-        this.$store.commit('changeSearchEngine', searchEngineNumber)
+      if (isNaN(searchEngineNumber)) {
+        this.$store.commit('changeSearchEngine', 0)
       } else {
-        localStorage.setItem('searchEngineNumber')
+        this.$store.commit('changeSearchEngine', searchEngineNumber)
       }
-
-      console.log(this)
     },
     components: {
       Main,
@@ -125,7 +123,7 @@
       Snow
     },
     beforeMount () {
-      
+      console.log(this.$store)
     }
   }
 </script>

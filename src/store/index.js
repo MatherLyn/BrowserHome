@@ -99,7 +99,6 @@ export default new Vuex.Store({
     changeMode (state, target) {
       state.mode = target
       state.subMode = 0
-      console.log(`副状态为：${state.subMode}`)
       switch (target) {
         case 0: {
           console.log('切换到0')
@@ -146,17 +145,18 @@ export default new Vuex.Store({
       state.subMode = target
     },
     changeBackground (state, target) {
-      state.backgroundImageNumber = target
       localStorage.setItem('backgroundImageNumber', target)
+      state.backgroundImageNumber = target
     },
     changeSkin (state, target) {
-      state.skinNumber = target
       localStorage.setItem('skinNumber', target)
+      state.skinNumber = target
     },
     changeSearchEngine (state, target) {
+      console.log(target)
+      localStorage.setItem('searchEngineNumber', target)
       state.searchEngineNumber = target
       state.subMode = 0
-      localStorage.setItem('searchEngineNumber', target)
     },
 
 
