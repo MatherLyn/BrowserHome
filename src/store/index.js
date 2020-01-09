@@ -162,6 +162,18 @@ export default new Vuex.Store({
 
     // 需要被复用的函数
     // 要想办法把他们的this绑定在vuex上
+
+    initFromStorage (state, type) {
+      // type = 'skinNumber'
+      const tempNumber = parseInt(localStorage.getItem(type))
+      const functionName = `change${type.substring(0, type.length - 6).replace(type.charAt(0), type.charAt(0).toUpperCase())}`
+      console.log(functionName)
+      if (isNaN(tempNumber)) {
+        this.commit(functionName, 0)
+      } else {
+        this.commit(functionName, tempNumber)
+      }
+    },
     doSearch (state) {
       state.searchKeyword = state.searchKeyword.trim()
       console.log(state.searchKeyword)

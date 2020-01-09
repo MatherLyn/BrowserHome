@@ -31,7 +31,7 @@
     box-sizing: border-box;
     width: 18rem;
     height: 4rem;
-    line-height: 4rem;
+    line-height: 1.6rem;
     font-size: 1.6rem;
     border: none;
     border-radius: 2rem;

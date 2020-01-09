@@ -28,15 +28,17 @@
         </el-form-item>
 
         <el-form-item label="背景图片">
-          <el-image
-            v-for="(item, index) in $store.state.backgroundImageSet"
-            :key="index"
-            :title="item.name"
-            :src="item.src"
-            class="image-item"
-            :class="{ 'active-item': index === $store.state.backgroundImageNumber }"
-            @click="$store.commit('changeBackground', index)">
-          </el-image>
+          <div class="image-container">
+            <el-image
+              v-for="(item, index) in $store.state.backgroundImageSet"
+              :key="index"
+              :title="item.name"
+              :src="item.src"
+              class="image-item"
+              :class="{ 'active-item': index === $store.state.backgroundImageNumber }"
+              @click="$store.commit('changeBackground', index)">
+            </el-image>
+          </div>
         </el-form-item>
       </div>
 
@@ -268,6 +270,14 @@
     padding: 4rem;
     background: #fff;
     border-radius: .4rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .my-form div {
+    overflow: hidden;
   }
 
   .narrower {
@@ -295,10 +305,15 @@
     float: none;
   }
 
+  .image-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
   .image-item {
     width: 10rem;
     height: 6.18rem;
-    padding: .5rem
+    padding: .5rem;
   }
 
   .image-item:hover {

@@ -93,29 +93,14 @@
       }
 
       // 从localStorage读出保存的装饰编号
-      const skinNumber = parseInt(localStorage.getItem('skinNumber'))
-      if (isNaN(skinNumber)) {
-        this.$store.commit('changeSkin', 0)
-      } else {
-        this.$store.commit('changeSkin', skinNumber)
-      }
+      this.$store.commit('initFromStorage', 'skinNumber')
 
       // 向后端请求图片数组
       // 从localStorage读出保存的背景图片编号
-      const backgroundNumber = parseInt(localStorage.getItem('backgroundImageNumber'))
-      if (isNaN(backgroundNumber)) {
-        this.$store.commit('changeBackground', 0)
-      } else {
-        this.$store.commit('changeBackground', backgroundNumber)
-      }
+      this.$store.commit('initFromStorage', 'backgroundNumber')
 
       // 从localStorage读出保存的搜索引擎编号
-      const searchEngineNumber = parseInt(localStorage.getItem('searchEngineNumber'))
-      if (isNaN(searchEngineNumber)) {
-        this.$store.commit('changeSearchEngine', 0)
-      } else {
-        this.$store.commit('changeSearchEngine', searchEngineNumber)
-      }
+      this.$store.commit('initFromStorage', 'searchEngineNumber')
     },
     components: {
       Main,
@@ -225,5 +210,9 @@
   .submit-button {
     width: 100% !important;
     margin-top: 2rem !important;
+  }
+
+  .el-input__inner {
+    line-height: 1.6rem !important;
   }
 </style>
