@@ -51,6 +51,7 @@
     color: #fff;
     box-shadow: 0 0 1rem rgba(30, 30, 30, .2);
     background-color: rgba(240, 240, 240, .25);
+    -webkit-backdrop-filter: blur(1rem);
     backdrop-filter: blur(1rem);
     text-align: center;
     transition-duration: .25s;

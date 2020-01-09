@@ -116,6 +116,8 @@
       } else {
         localStorage.setItem('searchEngineNumber')
       }
+
+      console.log(this)
     },
     components: {
       Main,
@@ -144,7 +146,7 @@
     height: 100vh;
     min-width: 360px;
     min-height: 600px;
-    font-family: applesystem, BlinkMacSystemFont, Ubuntu, Microsoft YaHei Light, Microsoft YaHei;
+    font-family: -apple-system, BlinkMacSystemFont, Ubuntu, Microsoft YaHei Light, Microsoft YaHei;
     letter-spacing: .2rem;
     overflow: hidden;
   }
