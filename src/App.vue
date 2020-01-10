@@ -144,7 +144,7 @@
   }
 
   label {
-    float: left;
+    display: inline-block;
     color: #666;
   }
 
@@ -214,5 +214,6 @@
 
   .el-input__inner {
     line-height: 1.6rem !important;
+    width: 100%;
   }
 </style>

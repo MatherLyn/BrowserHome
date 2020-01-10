@@ -2,7 +2,7 @@
   <div>
     <el-form class="my-form" label-position="top" :class="{ 'narrower' : flag != 1 }">
       <!-- 标题 -->
-      <el-form-item>
+      <el-form-item class="title">
         <span class="form-title" v-if="!flag">个人中心</span>
         <span class="form-title" v-if="flag === 1">设置</span>
         <span class="form-title" v-if="flag === 2">登录</span>
@@ -73,7 +73,7 @@
 
       <!-- 注册 -->
       <div v-if="flag === 3">
-        <el-form-item>
+        <el-form-item class="register-item">
           <label for="registerUsername">用户名</label>
           <el-input
             placeholder="请输入用户名"
@@ -83,7 +83,7 @@
             prefix-icon="el-icon-user">
           </el-input>
         </el-form-item>
-        <el-form-item>
+        <el-form-item class="register-item">
           <label for="registerEmail">密保邮箱</label>
           <el-input
             placeholder="请输入密保邮箱"
@@ -93,7 +93,16 @@
             prefix-icon="el-icon-message">
           </el-input>
         </el-form-item>
-        <el-form-item>
+        <el-form-item class="register-item">
+          <label for="registerBirthday">生日</label>
+          <el-date-picker
+            v-model="register.birthday"
+            type="date"
+            placeholder="请选择您的生日"
+            class="birthday">
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item class="register-item">
           <label for="registerPassword">密码</label>
           <el-input
             placeholder="请输入密码"
@@ -103,7 +112,7 @@
             prefix-icon="el-icon-lock">
           </el-input>
         </el-form-item>
-        <el-form-item>
+        <el-form-item class="register-item">
           <el-button type="primary" class="submit-button" @click="doRegister">注册</el-button>
         </el-form-item>
         <a href="javascript: void(0)" @click="$store.commit('changeMode', 5)">返回登录</a>
@@ -169,6 +178,7 @@
         register: {
           username: '',
           email: '',
+          birthday: '',
           password: ''
         },
         login: {
@@ -193,7 +203,7 @@
 
       },
       doRegister () {
-
+        console.log(this.register)
       },
       doSendCode () {
         // 向服务端请求发送邮件
@@ -257,15 +267,9 @@
 
 <style scoped>
   .my-form {
-    position: fixed;
     transition-duration: .25s;
     width: 52rem;
     height: fit-content;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
     box-sizing: border-box;
     padding: 4rem;
     background: #fff;
@@ -274,10 +278,6 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-  }
-
-  .my-form div {
-    overflow: hidden;
   }
 
   .narrower {
@@ -354,6 +354,16 @@
 
   #sendCode:hover {
     background-color: #7849f7;
+  }
+
+  .register-item {
+    margin-bottom: 1rem !important;
+  }
+
+  .birthday {
+    display: block;
+    overflow: hidden;
+    width: 100% !important;
   }
 
   @media screen and (max-width: 600px) {

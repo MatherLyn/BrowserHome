@@ -67,5 +67,8 @@
     z-index: 3;
     opacity: 0;
     transition-duration: .25s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 </style>
