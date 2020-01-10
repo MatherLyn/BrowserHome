@@ -85,11 +85,7 @@ export default new Vuex.Store({
 
     // 登陆状态
     loggedin: false,
-    userInfo: {
-      username: '',
-      email: '',
-      password: '',
-    },
+    token: '',
 
     // input 的关键字
     searchKeyword: ''
@@ -158,7 +154,12 @@ export default new Vuex.Store({
       state.searchEngineNumber = target
       state.subMode = 0
     },
-
+    login (state, token) {
+      state.loggedin = true
+      state.token = token
+      localStorage.setItem('loggedin', 1)
+      localStorage.setItem('token', token)
+    },
 
     // 需要被复用的函数
     // 要想办法把他们的this绑定在vuex上
@@ -198,6 +199,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    
   },
   modules: {
   }

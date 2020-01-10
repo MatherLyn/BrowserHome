@@ -66,7 +66,14 @@
           </el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" class="submit-button" @click="doLogin">登录</el-button>
+          <el-button
+            type="primary"
+            class="submit-button"
+            @click="doLogin"
+            :disabled="!login.username || !login.password">
+            登录
+          </el-button>
+          <p class="msg" v-if="loginMsg">{{ loginMsg }}</p>
         </el-form-item>
         <a href="javascript: void(0)" @click="$store.commit('changeMode', 6)">注册一个账号</a>
       </div>
@@ -99,7 +106,9 @@
             v-model="register.birthday"
             type="date"
             placeholder="请选择您的生日"
-            class="birthday">
+            class="birthday"
+            :picker-options="pickerOptions"
+            :default-value="'2000/1/1'">
           </el-date-picker>
         </el-form-item>
         <el-form-item class="register-item">
@@ -113,7 +122,15 @@
           </el-input>
         </el-form-item>
         <el-form-item class="register-item">
-          <el-button type="primary" class="submit-button" @click="doRegister">注册</el-button>
+          <el-button
+            type="primary"
+            class="submit-button"
+            @click="doRegister"
+            :disabled="!register.username || !register.email 
+            || !register.birthday || !register.password">
+            注册
+          </el-button>
+          <p class="msg" v-if="registerMsg">{{ registerMsg }}</p>
         </el-form-item>
         <a href="javascript: void(0)" @click="$store.commit('changeMode', 5)">返回登录</a>
       </div>
@@ -154,6 +171,7 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" class="submit-button" @click="doFindPassword">验证</el-button>
+          <p class="msg" v-if="fpMsg">{{ fpMsg }}</p>
         </el-form-item>
         <a href="javascript: void(0)" @click="$store.commit('changeMode', 5)">返回登录</a>
       </div>
@@ -181,10 +199,12 @@
           birthday: '',
           password: ''
         },
+        registerMsg: '',
         login: {
           username: '',
           password: ''
         },
+        loginMsg: '',
         forgetPassword: {
           active: true,
           count: 30,
@@ -193,17 +213,57 @@
             verifyingCode: ''
           }
         },
+        fpMsg: '',
         profile: {
 
+        },
+        pickerOptions: {
+          disabledDate(time) {
+            return time.getTime() > Date.now()
+          },
         }
       }
     },
     methods: {
       doLogin () {
-
+        console.log(this.login)
+        this.axios.post('/api/user/login', this.login)
+        .then(response => {
+          console.log(response)
+          if (response.data.status) {
+            // 登录成功，将token存到vuex和localStorage中，跳转到profile状态
+            this.$store.commit('login', response.data.token)
+            this.$store.commit('changeMode', 3)
+          } else {
+            // 登录失败，显示提示
+            this.loginMsg = response.data.msg
+          }
+        })
       },
       doRegister () {
-        console.log(this.register)
+        const birthday = new Date(this.register.birthday)
+        const year = birthday.getFullYear()
+        let month = birthday.getMonth()
+        let date = birthday.getDate()
+        month++
+        if (month < 10) {
+          month = `0${month}`
+        }
+        if (date < 10) {
+          date = `0${date}`
+        }
+        this.register.birthday = `${year}/${month}/${date}`
+        this.axios.post('/api/user/register', this.register)
+        .then(response => {
+          console.log(response)
+          if (response.data.status) {
+            // 注册成功跳转到登录状态
+            this.$store.commit('changeMode', 5)
+          } else {
+            // 注册失败显示提示
+            this.registerMsg = response.data.msg
+          }
+        })
       },
       doSendCode () {
         // 向服务端请求发送邮件
@@ -364,6 +424,11 @@
     display: block;
     overflow: hidden;
     width: 100% !important;
+  }
+
+  .msg {
+    text-align: center;
+    color: #ff0000;
   }
 
   @media screen and (max-width: 600px) {
