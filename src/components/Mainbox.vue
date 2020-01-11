@@ -5,7 +5,7 @@
     <Motto />
     <Copyright />
     <ProfileBtn @click.native="profileManagement" />
-    <SettingsBtn @click.native="$store.commit('changeMode', 4)" />
+    <SettingsBtn @click.native="$store.commit('changeMode', { mode: 4 })" />
   </div>
 </template>
 
@@ -25,9 +25,9 @@
     methods: {
       profileManagement () {
         if (this.$store.state.loggedin) {
-          this.$store.commit('changeMode', 3)
+          this.$store.commit('changeMode', { mode: 3 })
         } else {
-          this.$store.commit('changeMode', 5)
+          this.$store.commit('changeMode', { mode: 5 })
         }
       }
     },

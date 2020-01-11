@@ -86,16 +86,20 @@ export default new Vuex.Store({
     // 登陆状态
     loggedin: false,
     token: '',
+    userInfo: {
+      username: '',
+      password: ''
+    },
 
     // input 的关键字
     searchKeyword: ''
 
   },
   mutations: {
-    changeMode (state, target) {
-      state.mode = target
+    changeMode (state, payload) {
+      state.mode = payload.mode
       state.subMode = 0
-      switch (target) {
+      switch (payload.mode) {
         case 0: {
           console.log('切换到0')
           document.getElementById('search').blur()
@@ -120,6 +124,12 @@ export default new Vuex.Store({
           break
         }
         case 5: {
+          if (payload.username) {
+            state.userInfo.username = payload.username
+          }
+          if (payload.password) {
+            state.userInfo.password = payload.password
+          }
           console.log('切换到5')
           break
         }

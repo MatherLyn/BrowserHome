@@ -38,13 +38,13 @@
             // Enter进入1
             // 空格进入2
             if (e.keyCode == 27) {
-              this.$store.commit('changeMode', 0)
+              this.$store.commit('changeMode', { mode: 0 })
             }
             if (e.keyCode == 13) {
-              this.$store.commit('changeMode', 1)
+              this.$store.commit('changeMode', { mode: 1 })
             }
             if (e.keyCode == 32) {
-              this.$store.commit('changeMode', 2)
+              this.$store.commit('changeMode', { mode: 2 })
             }
             break
           }
@@ -54,7 +54,7 @@
             // Enter应该跳转搜索
             // 空格不应该设置功能（要输入内容的）
             if (e.keyCode == 27) {
-              this.$store.commit('changeMode', 0)
+              this.$store.commit('changeMode', { mode: 0 })
             }
             if (e.keyCode == 13) {
               // 跳转搜索
@@ -65,13 +65,13 @@
           case 2: {
             // 功能状态还没想好
             if (e.keyCode == 27) {
-              this.$store.commit('changeMode', 0)
+              this.$store.commit('changeMode', { mode: 0 })
             }
             if (e.keyCode == 13) {
-              this.$store.commit('changeMode', 1)
+              this.$store.commit('changeMode', { mode: 1 })
             }
             if (e.keyCode == 32) {
-              this.$store.commit('changeMode', 2)
+              this.$store.commit('changeMode', { mode: 2 })
             }
             break
           }
@@ -79,14 +79,14 @@
             // 定制状态
             // Esc退出到0
             if (e.keyCode == 27) {
-              this.$store.commit('changeMode', 0)
+              this.$store.commit('changeMode', { mode: 0 })
             }
           }
           case 4: {
             // 设置状态
             // Esc退出到0
             if (e.keyCode == 27) {
-              this.$store.commit('changeMode', 0)
+              this.$store.commit('changeMode', { mode: 0 })
             }
           }
         }

@@ -8,7 +8,7 @@
         <span class="form-title" v-if="flag === 2">登录</span>
         <span class="form-title" v-if="flag === 3">注册</span>
         <span class="form-title" v-if="flag === 4">忘记密码</span>
-        <i class="el-icon-close close" @click="$store.commit('changeMode', 0)"></i>
+        <i class="el-icon-close close" @click="$store.commit('changeMode', { mode: 0 })"></i>
       </el-form-item>
 
       <!-- 设置 -->
@@ -56,7 +56,7 @@
         </el-form-item>
         <el-form-item>
           <label for="loginPassword">密码</label>
-          <a href="javascript: void(0)" style="float: right;" @click="$store.commit('changeMode', 7)">忘记密码</a>
+          <a href="javascript: void(0)" style="float: right;" @click="$store.commit('changeMode', { mode: 7 })">忘记密码</a>
           <el-input
             placeholder="请输入密码"
             v-model="login.password"
@@ -75,7 +75,7 @@
           </el-button>
           <p class="msg" v-if="loginMsg">{{ loginMsg }}</p>
         </el-form-item>
-        <a href="javascript: void(0)" @click="$store.commit('changeMode', 6)">注册一个账号</a>
+        <a href="javascript: void(0)" @click="$store.commit('changeMode', { mode: 6 })">注册一个账号</a>
       </div>
 
       <!-- 注册 -->
@@ -132,7 +132,7 @@
           </el-button>
           <p class="msg" v-if="registerMsg">{{ registerMsg }}</p>
         </el-form-item>
-        <a href="javascript: void(0)" @click="$store.commit('changeMode', 5)">返回登录</a>
+        <a href="javascript: void(0)" @click="$store.commit('changeMode', { mode: 5 })">返回登录</a>
       </div>
 
 
@@ -173,7 +173,7 @@
           <el-button type="primary" class="submit-button" @click="doFindPassword">验证</el-button>
           <p class="msg" v-if="fpMsg">{{ fpMsg }}</p>
         </el-form-item>
-        <a href="javascript: void(0)" @click="$store.commit('changeMode', 5)">返回登录</a>
+        <a href="javascript: void(0)" @click="$store.commit('changeMode', { mode: 5 })">返回登录</a>
       </div>
 
       <!-- 个人中心 -->
@@ -182,11 +182,13 @@
       </div>
 
     </el-form>
+    <Tips :msg="tipsMsg" :class="[tipsDisplay ? 'display' : 'hidden']"/>
   </div>
 
 </template>
 
 <script>
+  import Tips from './Tips'
   export default {
     props: [
       'flag'
@@ -221,19 +223,26 @@
           disabledDate(time) {
             return time.getTime() > Date.now()
           },
-        }
+        },
+        tipsMsg: '',
+        tipsDisplay: false
       }
     },
     methods: {
       doLogin () {
-        console.log(this.login)
+        console.log(this)
         this.axios.post('/api/user/login', this.login)
         .then(response => {
           console.log(response)
           if (response.data.status) {
             // 登录成功，将token存到vuex和localStorage中，跳转到profile状态
-            this.$store.commit('login', response.data.token)
-            this.$store.commit('changeMode', 3)
+            this.tipsMsg = response.data.msg
+            this.tipsDisplay = true
+            setTimeout(() => {
+              this.tipsDisplay = false
+              this.$store.commit('login', response.data.token)
+              this.$store.commit('changeMode', { mode: 3 })
+            }, 1000);
           } else {
             // 登录失败，显示提示
             this.loginMsg = response.data.msg
@@ -258,7 +267,16 @@
           console.log(response)
           if (response.data.status) {
             // 注册成功跳转到登录状态
-            this.$store.commit('changeMode', 5)
+            // 如何把参数传递到注册
+            const username = this.register.username
+            const password = this.register.password
+
+            this.tipsMsg = response.data.msg
+            this.tipsDisplay = true
+            setTimeout(() => {
+              this.tipsDisplay = false
+              this.$store.commit('changeMode', { mode: 5, username, password })
+            }, 1000);
           } else {
             // 注册失败显示提示
             this.registerMsg = response.data.msg
@@ -282,6 +300,10 @@
       }
     },
     beforeMount() {
+      
+      console.log(!this.flag && !this.$store.state.loggedin && !this.register)
+    },
+    mounted () {
       // flag: 0表示个人中心，1表示设置，2表示登录，3表示注册，4表示忘记密码
       switch (this.flag) {
         case 0: {
@@ -316,11 +338,9 @@
           break
         }
       }
-      
-      console.log(!this.flag && !this.$store.state.loggedin && !this.register)
     },
-    mounted () {
-      
+    components: {
+      Tips
     }
   }
 </script>

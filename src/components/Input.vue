@@ -1,6 +1,6 @@
 <template>
   <div class="input">
-    <input id="search" type="text" class="search" placeholder="Search" v-model="$store.state.searchKeyword" @click="$store.commit('changeMode', 1)"/>
+    <input id="search" type="text" class="search" placeholder="Search" v-model="$store.state.searchKeyword" @click="$store.commit('changeMode', { mode: 1 })"/>
     <SearchEngineSelect :class="{ 'hidden' : $store.state.mode !== 1 }"/>
   </div>
 </template>
