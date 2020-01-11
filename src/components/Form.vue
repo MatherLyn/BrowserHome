@@ -178,7 +178,10 @@
 
       <!-- 个人中心 -->
       <div v-if="!flag">
-
+        <div>你好，{{ $store.state.userInfo.username }}</div>
+        <el-form-item>
+          <el-button type="danger" class="submit-button" @click="doLogout">退出登录</el-button>
+        </el-form-item>
       </div>
 
     </el-form>
@@ -217,7 +220,7 @@
         },
         fpMsg: '',
         profile: {
-
+          
         },
         pickerOptions: {
           disabledDate(time) {
@@ -240,7 +243,11 @@
             this.tipsDisplay = true
             setTimeout(() => {
               this.tipsDisplay = false
-              this.$store.commit('login', response.data.token)
+              this.$store.commit('login', {
+                token: response.data.token,
+                username: this.login.username,
+                password: this.login.password
+              })
               this.$store.commit('changeMode', { mode: 3 })
             }, 1000);
           } else {
@@ -248,6 +255,15 @@
             this.loginMsg = response.data.msg
           }
         })
+      },
+      doLogout () {
+        this.$store.commit('logout')
+        this.tipsMsg = '退出登录成功'
+        this.tipsDisplay = true
+        setTimeout(() => {
+          this.tipsDisplay = false
+          this.$store.commit('changeMode', { mode: 0 })
+        }, 1000);
       },
       doRegister () {
         const birthday = new Date(this.register.birthday)
@@ -270,7 +286,6 @@
             // 如何把参数传递到注册
             const username = this.register.username
             const password = this.register.password
-
             this.tipsMsg = response.data.msg
             this.tipsDisplay = true
             setTimeout(() => {

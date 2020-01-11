@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from 'axios'
 
 Vue.use(Vuex)
 
@@ -85,8 +86,8 @@ export default new Vuex.Store({
 
     // 登陆状态
     loggedin: false,
-    token: '',
     userInfo: {
+      token: '',
       username: '',
       password: ''
     },
@@ -164,11 +165,22 @@ export default new Vuex.Store({
       state.searchEngineNumber = target
       state.subMode = 0
     },
-    login (state, token) {
+    login (state, payload) {
       state.loggedin = true
-      state.token = token
+      state.userInfo = payload
       localStorage.setItem('loggedin', 1)
-      localStorage.setItem('token', token)
+      localStorage.setItem('token', payload.token)
+      localStorage.setItem('username', payload.username)
+      localStorage.setItem('password', payload.password)
+    },
+    logout (state, payload) {
+      state.loggedin = false
+      state.userInfo = {
+        token: '',
+        username: '',
+        password: ''
+      }
+      localStorage.setItem('loggedin', 0)
     },
 
     // 需要被复用的函数
@@ -209,7 +221,28 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    
+    initLogin (context) {
+      const loggedin = parseInt(localStorage.getItem('loggedin'))
+      if (isNaN(loggedin)) {
+        return
+      } else {
+        const token = localStorage.getItem('token')
+        const username = localStorage.getItem('username')
+        const password = localStorage.getItem('password')
+        context.state.userInfo = {
+          token,
+          username,
+          password
+        }
+        console.log('尝试自动登录')
+        if (username !== null && password !== null) {
+          axios.post('http://127.0.0.1:3000/api/user/login', { username, password })
+          .then(response => {
+            context.commit('login', context.state.userInfo)
+          })
+        }
+      }
+    }
   },
   modules: {
   }

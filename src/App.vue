@@ -93,7 +93,7 @@
       }
 
       // 从localStorage读出保存到登录状态
-      
+      this.$store.dispatch('initLogin')
 
       // 从localStorage读出保存的装饰编号
       this.$store.commit('initFromStorage', 'skinNumber')
