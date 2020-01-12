@@ -5,7 +5,7 @@
         v-for="(item, index) in $store.state.searchEngineSet"
         :key="index"
         class="search-engine-options">
-        <img :src="item.logo" :title="item.name" @click="$store.commit('changeSearchEngine',index)"/>
+        <img :src="item.logo" :title="item.name" @click="$store.commit('changeSearchEngine', { index })"/>
       </li>
     </ul>
     <img
@@ -14,7 +14,7 @@
       alt="搜索"
       @click="$store.commit('doSearch')"
     />
-    <div class="arrow" @click="$store.commit('changeSubMode', 1)"></div>
+    <div class="arrow" @click="$store.commit('changeSubMode', { subMode: 1 })"></div>
   </div>
 </template>
 

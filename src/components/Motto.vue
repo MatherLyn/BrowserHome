@@ -1,5 +1,5 @@
 <template>
-  <div class="motto" :class="{ 'display': $store.state.mode == 1, 'hidden': $store.state.mode != 1 }">
+  <div class="motto" :class="[ $store.state.mode == 1 ? 'display' : 'hidden']">
     <p>{{ motto }}</p>
   </div>
 </template>
@@ -8,7 +8,7 @@
   export default {
     data () {
       return {
-        motto: '可能是网络原因，一时半会儿想不到有什么好句子喔……'
+        motto: '网络不通畅，一时半会儿想不到有什么好句子喔……'
       }
     },
     methods: {

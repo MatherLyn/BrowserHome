@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-form class="my-form" label-position="top" :class="{ 'narrower' : flag != 1 }">
+    <el-form class="my-form" label-position="top" :class="{ 'narrower' : flag !== 1 }">
       <!-- 标题 -->
       <el-form-item class="title">
         <span class="form-title" v-if="!flag">个人中心</span>
@@ -20,8 +20,8 @@
               :key="index"
               :label="index"
               class="skin-radio"
-              :disabled="index === 2 || index === 3"
-              @change="$store.commit('changeSkin', index)">
+              :disabled="index === 2 || index === 3 || index === 4"
+              @change="$store.commit('changeSkin', { index })">
               {{ item.name }}
             </el-radio>
           </el-radio-group>
@@ -36,7 +36,7 @@
               :src="item.src"
               class="image-item"
               :class="{ 'active-item': index === $store.state.backgroundImageNumber }"
-              @click="$store.commit('changeBackground', index)">
+              @click="$store.commit('changeBackground', { index })">
             </el-image>
           </div>
         </el-form-item>
@@ -171,7 +171,7 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" class="submit-button" @click="doFindPassword">验证</el-button>
-          <p class="msg" v-if="fpMsg">{{ fpMsg }}</p>
+          <p class="msg" v-if="forgetPasswordMsg">{{ forgetPasswordMsg }}</p>
         </el-form-item>
         <a href="javascript: void(0)" @click="$store.commit('changeMode', { mode: 5 })">返回登录</a>
       </div>
@@ -218,7 +218,7 @@
             verifyingCode: ''
           }
         },
-        fpMsg: '',
+        forgetPasswordMsg: '',
         profile: {
           
         },
@@ -322,34 +322,45 @@
       // flag: 0表示个人中心，1表示设置，2表示登录，3表示注册，4表示忘记密码
       switch (this.flag) {
         case 0: {
-          this.register = undefined
-          this.login = undefined
-          this.forgetPassword = undefined
+          const DataKeys = Object.keys(this.$data)
+          DataKeys.splice(6, 1)
+          DataKeys.splice(7, 2)
+          DataKeys.forEach(item => {
+            delete this.$data[item]
+          })
           break
         }
         case 1: {
-          this.profile = undefined
-          this.login = undefined
-          this.register = undefined
-          this.forgetPassword = undefined
+          Object.keys(this.$data).forEach((item) => {
+            delete this.$data[item]
+          })
           break
         }
         case 2: {
-          this.profile = undefined
-          this.register = undefined
-          this.forgetPassword = undefined
+          const DataKeys = Object.keys(this.$data)
+          DataKeys.splice(2, 2)
+          DataKeys.splice(6, 2)
+          DataKeys.forEach(item => {
+            delete this.$data[item]
+          })
           break
         }
         case 3: {
-          this.profile = undefined
-          this.login = undefined
-          this.forgetPassword = undefined
+          const DataKeys = Object.keys(this.$data)
+          DataKeys.splice(0, 2)
+          DataKeys.splice(5, 3)
+          DataKeys.forEach(item => {
+            delete this.$data[item]
+          })
           break
         }
         case 4: {
-          this.profile = undefined
-          this.login = undefined
-          this.register = undefined
+          const DataKeys = Object.keys(this.$data)
+          DataKeys.splice(4, 2)
+          DataKeys.splice(6, 2)
+          DataKeys.forEach(item => {
+            delete this.$data[item]
+          })
           break
         }
       }

@@ -92,18 +92,8 @@
         }
       }
 
-      // 从localStorage读出保存到登录状态
-      this.$store.dispatch('initLogin')
-
-      // 从localStorage读出保存的装饰编号
-      this.$store.commit('initFromStorage', 'skinNumber')
-
-      // 向后端请求图片数组
-      // 从localStorage读出保存的背景图片编号
-      this.$store.commit('initFromStorage', 'backgroundNumber')
-
-      // 从localStorage读出保存的搜索引擎编号
-      this.$store.commit('initFromStorage', 'searchEngineNumber')
+      // 初始化 store 的状态
+      this.$store.dispatch('initialization')
     },
     components: {
       Main,
@@ -111,7 +101,7 @@
       Snow
     },
     beforeMount () {
-      console.log(this.$store)
+      
     }
   }
 </script>

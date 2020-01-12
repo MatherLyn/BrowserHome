@@ -55,6 +55,9 @@ export default new Vuex.Store({
       },
       {
         name: '暖阳装饰（即将到来）'
+      },
+      {
+        name: '新年烟花装饰（即将到来）'
       }
     ],
     skinNumber: 0,
@@ -94,7 +97,6 @@ export default new Vuex.Store({
 
     // input 的关键字
     searchKeyword: ''
-
   },
   mutations: {
     changeMode (state, payload) {
@@ -148,21 +150,20 @@ export default new Vuex.Store({
         }
       }
     },
-    changeSubMode (state, target) {
-      state.subMode = target
+    changeSubMode (state, payload) {
+      state.subMode = payload.subMode
     },
-    changeBackground (state, target) {
-      localStorage.setItem('backgroundImageNumber', target)
-      state.backgroundImageNumber = target
+    changeBackground (state, payload) {
+      localStorage.setItem('backgroundImageNumber', payload.index)
+      state.backgroundImageNumber = payload.index
     },
-    changeSkin (state, target) {
-      localStorage.setItem('skinNumber', target)
-      state.skinNumber = target
+    changeSkin (state, payload) {
+      localStorage.setItem('skinNumber', payload.index)
+      state.skinNumber = payload.index
     },
-    changeSearchEngine (state, target) {
-      console.log(target)
-      localStorage.setItem('searchEngineNumber', target)
-      state.searchEngineNumber = target
+    changeSearchEngine (state, payload) {
+      localStorage.setItem('searchEngineNumber', payload.index)
+      state.searchEngineNumber = payload.index
       state.subMode = 0
     },
     login (state, payload) {
@@ -192,9 +193,9 @@ export default new Vuex.Store({
       const functionName = `change${type.substring(0, type.length - 6).replace(type.charAt(0), type.charAt(0).toUpperCase())}`
       console.log(functionName)
       if (isNaN(tempNumber)) {
-        this.commit(functionName, 0)
+        this.commit(functionName, { index: 0 })
       } else {
-        this.commit(functionName, tempNumber)
+        this.commit(functionName, { index: tempNumber })
       }
     },
     doSearch (state) {
@@ -221,7 +222,14 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    initLogin (context) {
+    initialization (context) {
+      // 处理装饰
+      context.commit('initFromStorage', 'skinNumber')
+      // 处理背景图片
+      context.commit('initFromStorage', 'backgroundNumber')
+      // 处理搜索引擎
+      context.commit('initFromStorage', 'searchEngineNumber')
+      // 处理登录状态
       const loggedin = parseInt(localStorage.getItem('loggedin'))
       if (isNaN(loggedin)) {
         return

@@ -15,6 +15,9 @@
     },
     components: {
       Form
+    },
+    mounted () {
+      
     }
   }
 </script>
