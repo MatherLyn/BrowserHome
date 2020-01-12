@@ -36,7 +36,7 @@
               :src="item.src"
               class="image-item"
               :class="{ 'active-item': index === $store.state.backgroundImageNumber }"
-              @click="$store.commit('changeBackground', { index })">
+              @click="$store.commit('changeBackgroundImage', { index })">
             </el-image>
           </div>
         </el-form-item>
@@ -374,7 +374,7 @@
 <style scoped>
   .my-form {
     transition-duration: .25s;
-    width: 52rem;
+    width: 50rem;
     height: fit-content;
     box-sizing: border-box;
     padding: 4rem;
@@ -393,6 +393,7 @@
   .form-title {
     line-height: 4rem;
     float: left;
+    font-weight: 600;
   }
 
   .close {
@@ -417,8 +418,9 @@
   }
 
   .image-item {
-    width: 10rem;
-    height: 6.18rem;
+    box-sizing: border-box;
+    width: 14rem;
+    height: 9rem;
     padding: .5rem;
   }
 
@@ -432,8 +434,8 @@
     top: .5rem;
     left: .5rem;
     display: block;
-    width: 10rem;
-    height: 6.18rem;
+    width: calc(100% - 1rem);
+    height: calc(100% - 1rem);
     background-color: #333;
     opacity: .3;
   }
@@ -441,8 +443,8 @@
   .active-item::after {
     content: '';
     position: absolute;
-    top: 2.5rem;
-    left: 4rem;
+    top: 40%;
+    left: 42%;
     display: block;
     box-sizing: border-box;
     width: 3rem;
@@ -477,17 +479,47 @@
     color: #ff0000;
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 520px) {
     .my-form {
-      width: 41rem;
+      width: 90%;
       padding: 2rem;
+    }
+
+    .image-item {
+      width: 33%;
+    }
+
+    .active-item::before {
+
+    }
+
+    .active-item::after {
+
     }
   }
 
-  @media screen and (max-width: 400px) {
+  @media screen and (max-width: 520px) {
     .my-form {
-      width: 36rem;
-      padding: 1.5rem;
+      width: 90%;
+    }
+
+    .image-item {
+      height: 8rem;
+    }
+
+    .active-item::after {
+      top: 36%;
+      left: 38%;
+    }
+  }
+  
+  @media screen and (max-width: 400px) {
+    .image-item {
+      height: 6rem;
+    }
+
+    .active-item::after {
+      top: 28%;
     }
   }
 </style>

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import httpConfig from '@/httpConfig'
 
 Vue.use(Vuex)
 
@@ -153,7 +154,7 @@ export default new Vuex.Store({
     changeSubMode (state, payload) {
       state.subMode = payload.subMode
     },
-    changeBackground (state, payload) {
+    changeBackgroundImage (state, payload) {
       localStorage.setItem('backgroundImageNumber', payload.index)
       state.backgroundImageNumber = payload.index
     },
@@ -226,7 +227,7 @@ export default new Vuex.Store({
       // 处理装饰
       context.commit('initFromStorage', 'skinNumber')
       // 处理背景图片
-      context.commit('initFromStorage', 'backgroundNumber')
+      context.commit('initFromStorage', 'backgroundImageNumber')
       // 处理搜索引擎
       context.commit('initFromStorage', 'searchEngineNumber')
       // 处理登录状态
@@ -244,7 +245,7 @@ export default new Vuex.Store({
         }
         console.log('尝试自动登录')
         if (username !== null && password !== null) {
-          axios.post('http://127.0.0.1:3000/api/user/login', { username, password })
+          axios.post(`${httpConfig.host}:${httpConfig.port}/api/user/login`, { username, password })
           .then(response => {
             context.commit('login', context.state.userInfo)
           })

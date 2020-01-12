@@ -120,9 +120,10 @@
     box-sizing: border-box;
     width: 100vw;
     height: 100vh;
-    min-width: 360px;
-    min-height: 600px;
-    font-family: -apple-system, BlinkMacSystemFont, Ubuntu, Microsoft YaHei Light, Microsoft YaHei;
+    min-width: 320px;
+    min-height: 568px;
+    font-family: Helvetica, Tahoma, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
+    /* -apple-system, BlinkMacSystemFont, Ubuntu, Microsoft YaHei Light, Microsoft YaHei; */
     letter-spacing: .2rem;
     overflow: hidden;
   }

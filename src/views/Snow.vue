@@ -12,6 +12,7 @@
         snows: [],
         lastCreateTime: '',
         SnowBall: {},
+        maxSnowBallCount: 200
       }
     },
     methods: {
@@ -24,7 +25,7 @@
       },
       createSnow () {
         let now = new Date();
-        if (now - this.lastCreateTime > this.snows.length - now.getMinutes() && this.snows.length < 200) {
+        if (now - this.lastCreateTime > this.snows.length - now.getMinutes() && this.snows.length < this.maxSnowBallCount) {
           const radius = Math.random() * 5 + 2
           let snow = new this.SnowBall(radius)
           snow.x = Math.random() * this.canvas.width + 1
@@ -46,11 +47,12 @@
         this.canvas.height = height
       }
     },
-    mounted () {
-      console.log('mounted')
-    },
     activated () {
       console.log('activated')
+      if (window.innerWidth < 520) this.maxSnowBallCount = 100
+      if (window.innerWidth < 360) this.maxSnowBallCount = 80
+      console.log(`窗口大小：${window.innerWidth}`)
+      console.log(`雪球数量：${this.maxSnowBallCount}`)
       this.canvas = document.getElementById('winterSkin')
       this.context = this.canvas.getContext('2d')
       this.SnowBall = class SnowBall {
@@ -77,6 +79,10 @@
       const oldOnResize = window.onresize
       // recalculate the size of the canvas
       window.onresize = () => {
+        console.log(window.innerWidth)
+        console.log(this.maxSnowBallCount)
+        if (window.innerWidth < 520) this.maxSnowBallCount = 100
+        if (window.innerWidth < 360) this.maxSnowBallCount = 80
         if (oldOnResize) oldOnResize()
         this.canvasResize()
       }
