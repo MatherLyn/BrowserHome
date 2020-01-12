@@ -122,8 +122,8 @@
     height: 100vh;
     min-width: 320px;
     min-height: 568px;
-    font-family: Helvetica, Tahoma, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
-    /* -apple-system, BlinkMacSystemFont, Ubuntu, Microsoft YaHei Light, Microsoft YaHei; */
+    font-family: "PingFang SC", "BlinkMacSystemFont", "Microsoft YaHei Light", "Microsoft YaHei", "Ubuntu", "WenQuanYi Micro Hei", ;
+    /* Helvetica, Tahoma, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei"; */
     letter-spacing: .2rem;
     overflow: hidden;
   }

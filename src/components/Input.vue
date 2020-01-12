@@ -40,6 +40,7 @@
     height: 4rem;
     line-height: 1.6rem;
     font-size: 1.6rem;
+    font-weight: 300;
     border: none;
     border-radius: 2rem;
     outline: none;
@@ -51,7 +52,6 @@
     backdrop-filter: blur(1rem);
     text-align: center;
     transition-duration: .25s;
-    font-family: -apple-system, BlinkMacSystemFont, Ubuntu, Microsoft YaHei;
     position: relative;
     z-index: 4;
   }

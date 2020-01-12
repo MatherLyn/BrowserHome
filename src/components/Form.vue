@@ -12,7 +12,20 @@
       </el-form-item>
 
       <!-- 设置 -->
-      <div v-if="flag === 1">
+      <div v-if="flag === 1" class="form-body">
+        <el-form-item label="外观">
+          <el-radio-group v-model="$store.state.appearanceNumber" text-color="#561CF5">
+            <el-radio
+              v-for="(item, index) in $store.state.appearanceSet"
+              :key="index"
+              :label="index"
+              :disabled="index === 0 || index === 1"
+              @change="$store.commit('changeAppearance', { index })">
+              {{ item.name }}
+              </el-radio>
+          </el-radio-group>
+        </el-form-item>
+
         <el-form-item label="动画装饰（可能会对性能产生影响）">
           <el-radio-group v-model="$store.state.skinNumber" text-color="#561CF5">
             <el-radio
@@ -36,14 +49,21 @@
               :src="item.src"
               class="image-item"
               :class="{ 'active-item': index === $store.state.backgroundImageNumber }"
-              @click="$store.commit('changeBackgroundImage', { index })">
+              @click="$store.commit('changeBackgroundImage', { index })"
+              lazy>
+              <div slot="placeholder" class="image-slot">
+                加载中<span class="dot">...</span>
+              </div>
+              <div slot="error" class="image-slot">
+                <i class="el-icon-picture-outline"></i>
+              </div>
             </el-image>
           </div>
         </el-form-item>
       </div>
 
       <!-- 登录 -->
-      <div v-if="flag === 2">
+      <div v-if="flag === 2" class="form-body">
         <el-form-item>
           <label for="loginUsername">用户名</label>
           <el-input
@@ -79,7 +99,7 @@
       </div>
 
       <!-- 注册 -->
-      <div v-if="flag === 3">
+      <div v-if="flag === 3" class="form-body">
         <el-form-item class="register-item">
           <label for="registerUsername">用户名</label>
           <el-input
@@ -137,7 +157,7 @@
 
 
       <!-- 忘记密码 -->
-      <div v-if="flag === 4">
+      <div v-if="flag === 4" class="form-body">
         <el-form-item>
           <label for="forgetPasswordEmail">密保邮箱</label>
           <el-input
@@ -374,26 +394,32 @@
 <style scoped>
   .my-form {
     transition-duration: .25s;
-    width: 50rem;
+    width: 50.6rem;
     height: fit-content;
+    max-height: 60rem;
     box-sizing: border-box;
     padding: 4rem;
     background: #fff;
     border-radius: .4rem;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    overflow: hidden;
   }
 
   .narrower {
     width: 42rem;
   }
 
+  .title {
+    overflow: visible;
+  }
+
   .form-title {
     line-height: 4rem;
     float: left;
     font-weight: 600;
+    overflow: visible;
   }
 
   .close {
@@ -402,8 +428,30 @@
   }
 
   .close:hover {
-    color: #7090FF;
+    color: #561CF5;
     cursor: pointer;
+  }
+
+  .form-body {
+    overflow-y: auto;
+  }
+
+  .form-body::-webkit-scrollbar {
+    width: .6rem;
+  }
+
+  .form-body::-webkit-scrollbar-thumb {
+    width: 100%;
+    background-color: rgba(48, 48, 48, .15);
+    border-radius: .3rem;
+  }
+
+  .form-body::-webkit-scrollbar-button {
+    display: none;
+  }
+
+  .form-body::-webkit-scrollbar-track {
+    display: none;
   }
 
   .skin-radio {
@@ -426,6 +474,20 @@
 
   .image-item:hover {
     cursor: pointer;
+  }
+
+  .image-slot {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #eee;
+  }
+
+  .image-slot > i {
+    font-size: 2rem;
+    color: #777;
   }
 
   .active-item::before {
@@ -487,14 +549,6 @@
 
     .image-item {
       width: 33%;
-    }
-
-    .active-item::before {
-
-    }
-
-    .active-item::after {
-
     }
   }
 

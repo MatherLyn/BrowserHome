@@ -20,6 +20,18 @@ export default new Vuex.Store({
     // 子状态，每个状态中点击某些按钮触发的该状态下的子状态
     // 附：切换状态时子状态默认切换为0
     subMode: 0,
+
+    // 外观设置
+    appearanceSet: [
+      {
+        name: '浅色'
+      },
+      {
+        name: '深色'
+      }
+    ],
+    appearanceNumber: 0,
+
     // 背景图片设置
     backgroundImageSet: [
       {
@@ -154,6 +166,10 @@ export default new Vuex.Store({
     changeSubMode (state, payload) {
       state.subMode = payload.subMode
     },
+    changeAppearance (state, payload) {
+      localStorage.setItem('appearanceNumber', payload.index)
+      state.appearanceNumber = payload.index
+    },
     changeBackgroundImage (state, payload) {
       localStorage.setItem('backgroundImageNumber', payload.index)
       state.backgroundImageNumber = payload.index
@@ -235,6 +251,9 @@ export default new Vuex.Store({
       if (isNaN(loggedin)) {
         return
       } else {
+        if (!loggedin) {
+          return
+        }
         const token = localStorage.getItem('token')
         const username = localStorage.getItem('username')
         const password = localStorage.getItem('password')
