@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-import httpConfig from '@/httpConfig'
+import httpConfig from '../http-config'
 
 Vue.use(Vuex)
 
@@ -109,26 +109,29 @@ export default new Vuex.Store({
     },
 
     // input 的关键字
-    searchKeyword: ''
+    searchKeyword: '',
+    // 控制tips是否显示以及显示内容
+    tipsDisplay: false,
+    tipsMsg: ''
   },
   mutations: {
-    changeMode (state, payload) {
+    changeMode (state: any, payload: any) {
       state.mode = payload.mode
       state.subMode = 0
       switch (payload.mode) {
         case 0: {
+          (<HTMLInputElement>document.getElementById('search')).blur()
           console.log('切换到0')
-          document.getElementById('search').blur()
           break
         }
         case 1: {
+          (<HTMLInputElement>document.getElementById('search')).focus()
           console.log('切换到1')
-          document.getElementById('search').focus()
           break
         }
         case 2: {
+          (<HTMLInputElement>document.getElementById('search')).blur()
           console.log('切换到2')
-          document.getElementById('search').blur()
           break
         }
         case 3: {
@@ -163,79 +166,94 @@ export default new Vuex.Store({
         }
       }
     },
-    changeSubMode (state, payload) {
+    changeSubMode (state: any, payload: any) {
       state.subMode = payload.subMode
     },
-    changeAppearance (state, payload) {
+    changeAppearance (state: any, payload: any) {
       localStorage.setItem('appearanceNumber', payload.index)
       state.appearanceNumber = payload.index
     },
-    changeBackgroundImage (state, payload) {
+    changeBackgroundImage (state: any, payload: any) {
       localStorage.setItem('backgroundImageNumber', payload.index)
       state.backgroundImageNumber = payload.index
     },
-    changeSkin (state, payload) {
+    changeSkin (state: any, payload: any) {
       localStorage.setItem('skinNumber', payload.index)
       state.skinNumber = payload.index
     },
-    changeSearchEngine (state, payload) {
+    changeSearchEngine (state: any, payload: any) {
       localStorage.setItem('searchEngineNumber', payload.index)
       state.searchEngineNumber = payload.index
       state.subMode = 0
     },
-    login (state, payload) {
+    login (state: any, payload: any) {
       state.loggedin = true
       state.userInfo = payload
-      localStorage.setItem('loggedin', 1)
+      localStorage.setItem('loggedin', '1')
       localStorage.setItem('token', payload.token)
       localStorage.setItem('username', payload.username)
       localStorage.setItem('password', payload.password)
     },
-    logout (state, payload) {
+    logout (state: any, payload: any) {
       state.loggedin = false
       state.userInfo = {
         token: '',
         username: '',
         password: ''
       }
-      localStorage.setItem('loggedin', 0)
+      localStorage.setItem('loggedin', '0')
     },
 
     // 需要被复用的函数
     // 要想办法把他们的this绑定在vuex上
 
-    initFromStorage (state, type) {
+    initFromStorage (state: any, type: string) {
       // type = 'skinNumber'
-      const tempNumber = parseInt(localStorage.getItem(type))
-      const functionName = `change${type.substring(0, type.length - 6).replace(type.charAt(0), type.charAt(0).toUpperCase())}`
+      const typeName: any = localStorage.getItem(type)
+      const functionName: string = `change${type.substring(0, type.length - 6).replace(type.charAt(0), type.charAt(0).toUpperCase())}`
       console.log(functionName)
-      if (isNaN(tempNumber)) {
+      if (typeName === null) {
         this.commit(functionName, { index: 0 })
       } else {
+        const tempNumber: number = parseInt(typeName)
         this.commit(functionName, { index: tempNumber })
       }
     },
-    doSearch (state) {
+    doSearch (state: any) {
       state.searchKeyword = state.searchKeyword.trim()
       console.log(state.searchKeyword)
       switch (state.searchEngineNumber) {
         case 0: {
-          location.href = `https://www.baidu.com/s?ie=utf-8&wd=${state.searchKeyword}`
+          location.href = `https://www.baidu.com/s?ie=utf-8&wd=${ state.searchKeyword }`
           break
         }
         case 1: {
+          location.href = `https://www.so.com/s?q=${ state.searchKeyword }`
           break
         }
         case 2: {
+          location.href = `https://www.google.com/search?q=${ state.searchKeyword }`
           break
         }
         case 3: {
+          location.href = `http://www.sogou.com/web?query=${ state.searchKeyword }`
           break
         }
         case 4: {
+          location.href = `https://www.bing.com/search?q=${ state.searchKeyword }`
           break
         }
       }
+    },
+    displayTips (state: any, payload: any) {
+      state.tipsMsg = payload.msg
+      state.tipsDisplay = true
+      setTimeout(() => {
+        state.tipsDisplay = false
+        setTimeout(() => {
+          state.tipsMsg = ''
+        }, 300);
+      }, 1000);
     }
   },
   actions: {
@@ -247,11 +265,11 @@ export default new Vuex.Store({
       // 处理搜索引擎
       context.commit('initFromStorage', 'searchEngineNumber')
       // 处理登录状态
-      const loggedin = parseInt(localStorage.getItem('loggedin'))
-      if (isNaN(loggedin)) {
+      const loggedin = localStorage.getItem('loggedin')
+      if (loggedin === null) {
         return
       } else {
-        if (!loggedin) {
+        if (parseInt(loggedin) === 0) {
           return
         }
         const token = localStorage.getItem('token')
@@ -264,9 +282,11 @@ export default new Vuex.Store({
         }
         console.log('尝试自动登录')
         if (username !== null && password !== null) {
+          // 发送请求
           axios.post(`${httpConfig.host}:${httpConfig.port}/api/user/login`, { username, password })
-          .then(response => {
+          .then((response: any) => {
             context.commit('login', context.state.userInfo)
+            context.commit('displayTips', { msg: response.data.msg })
           })
         }
       }

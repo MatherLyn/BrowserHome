@@ -3,45 +3,61 @@
     <Timer />
     <Input />
     <Motto />
-    <Copyright />
+    <CPRight />
     <ProfileBtn @click.native="profileManagement" />
     <SettingsBtn @click.native="$store.commit('changeMode', { mode: 4 })" />
   </div>
 </template>
 
-<script>
-  import Input from '@/components/Input'
-  import Timer from '@/components/Timer'
-  import Motto from '@/components/Motto'
-  import Copyright from '@/components/Copyright'
-  import ProfileBtn from '@/components/ProfileBtn'
-  import SettingsBtn from '@/components/SettingsBtn'
-  export default {
-    data () {
-      return {
-        
-      }
-    },
-    methods: {
-      profileManagement () {
-        if (this.$store.state.loggedin) {
-          this.$store.commit('changeMode', { mode: 3 })
-        } else {
-          this.$store.commit('changeMode', { mode: 5 })
-        }
-      }
-    },
+<script lang="ts">
+import Vue from 'vue'
+import Input from './Input.vue'
+import Timer from './Timer.vue'
+import Motto from './Motto.vue'
+import CPRight from './CPRight.vue'
+import ProfileBtn from './ProfileBtn.vue'
+import SettingsBtn from './SettingsBtn.vue'
+import Component from 'vue-class-component'
+
+  @Component({
     components: {
       Input,
       Timer,
       Motto,
-      Copyright,
+      CPRight,
       ProfileBtn,
       SettingsBtn
+    }
+  })
+  export default class Mainbox extends Vue {
+    // Constructor
+    constructor () {
+      super()
+    }
+
+    // Methods
+    profileManagement () {
+      if (this.$store.state.loggedin) {
+        this.$store.commit('changeMode', { mode: 3 })
+      } else {
+        this.$store.commit('changeMode', { mode: 5 })
+      }
     }
   }
 </script>
 
 <style scoped>
-  
+  .main-box {
+    position: absolute;
+    box-sizing: border-box;
+    padding-top: 8rem;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 4;
+    opacity: 1;
+    transition-duration: .25s;
+  }
 </style>

@@ -1,25 +1,25 @@
 <template>
   <div
-    id="container"
+    id="BGContainer"
     :class="{ 'blur': $store.state.mode === 1 || ($store.state.mode >= 3 && $store.state.mode <= 7) }"
-    :style="{ backgroundImage: `url(${$store.state.backgroundImageSet[$store.state.backgroundImageNumber].src})`}"></div>
+    :style="{ backgroundImage: `url(${$store.state.backgroundImageSet[$store.state.backgroundImageNumber].src})`}">
+  </div>
 </template>
 
-<script>
-  export default {
-    data () {
-      return {
+<script lang="ts">
+import Vue from 'vue'
+import Component from 'vue-class-component'
 
-      }
-    },
-    methods: {
-
+  @Component
+  export default class BGContainer extends Vue {
+    constructor () {
+      super()
     }
   }
 </script>
 
 <style scoped>
-  #container {
+  #BGContainer {
     position: absolute;
     width: 100%;
     height: 100%;

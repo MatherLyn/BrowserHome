@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-form class="my-form" label-position="top" :class="{ 'narrower' : flag !== 1 }">
+    <el-form class="my-form narrower" label-position="top" :class="{ 'narrower' : flag !== 1 }">
       <!-- 标题 -->
       <el-form-item class="title">
         <span class="form-title" v-if="!flag">个人中心</span>
@@ -331,7 +331,6 @@
         }, 1000)
       },
       doFindPassword () {
-
       }
     },
     beforeMount() {
@@ -406,76 +405,61 @@
     justify-content: center;
     overflow: hidden;
   }
-
   .narrower {
     width: 42rem;
   }
-
   .title {
     overflow: visible;
   }
-
   .form-title {
     line-height: 4rem;
     float: left;
     font-weight: 600;
     overflow: visible;
   }
-
   .close {
     line-height: 4rem;
     float: right;
   }
-
   .close:hover {
     color: #561CF5;
     cursor: pointer;
   }
-
   .form-body {
     overflow-y: auto;
   }
-
   .form-body::-webkit-scrollbar {
     width: .6rem;
   }
-
   .form-body::-webkit-scrollbar-thumb {
     width: 100%;
     background-color: rgba(48, 48, 48, .15);
     border-radius: .3rem;
   }
-
   .form-body::-webkit-scrollbar-button {
     display: none;
   }
-
   .form-body::-webkit-scrollbar-track {
     display: none;
   }
-
   .skin-radio {
     display: block !important;
     margin-bottom: 1rem !important;
     float: none;
   }
-
   .image-container {
     display: flex;
     flex-wrap: wrap;
   }
-
   .image-item {
     box-sizing: border-box;
     width: 14rem;
     height: 9rem;
     padding: .5rem;
   }
-
   .image-item:hover {
     cursor: pointer;
   }
-
   .image-slot {
     width: 100%;
     height: 100%;
@@ -484,12 +468,10 @@
     align-items: center;
     background-color: #eee;
   }
-
   .image-slot > i {
     font-size: 2rem;
     color: #777;
   }
-
   .active-item::before {
     content: '';
     position: absolute;
@@ -501,7 +483,6 @@
     background-color: #333;
     opacity: .3;
   }
-
   .active-item::after {
     content: '';
     position: absolute;
@@ -515,52 +496,42 @@
     border-bottom: .2rem solid #fff;
     transform: rotate(-45deg);
   }
-
   #sendCode {
     width: 16rem;
     background-color: #561CF5;
     color: #fff;
   }
-
   #sendCode:hover {
     background-color: #7849f7;
   }
-
   .register-item {
     margin-bottom: 1rem !important;
   }
-
   .birthday {
     display: block;
     overflow: hidden;
     width: 100% !important;
   }
-
   .msg {
     text-align: center;
     color: #ff0000;
   }
-
   @media screen and (max-width: 520px) {
     .my-form {
       width: 90%;
       padding: 2rem;
     }
-
     .image-item {
       width: 33%;
     }
   }
-
   @media screen and (max-width: 520px) {
     .my-form {
       width: 90%;
     }
-
     .image-item {
       height: 8rem;
     }
-
     .active-item::after {
       top: 36%;
       left: 38%;
@@ -571,7 +542,6 @@
     .image-item {
       height: 6rem;
     }
-
     .active-item::after {
       top: 28%;
     }

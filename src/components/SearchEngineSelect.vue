@@ -18,20 +18,12 @@
   </div>
 </template>
 
-<script>
-  export default {
-    data () {
-      return {
-        
-      }
-    },
-    methods: {
+<script lang="ts">
+import Vue from 'vue'
+import Component from 'vue-class-component'
 
-    },
-    components: {
-      
-    }
-  }
+@Component
+export default class SearchEngineSelect extends Vue {}
 </script>
 
 <style scoped>
@@ -47,11 +39,9 @@
     opacity: .6;
     z-index: 5;
   }
-
   .search-engine:hover {
     opacity: 1;
   }
-
   .search-engine-select {
     position: relative;
     width: 100%;
@@ -65,7 +55,6 @@
     align-items: center;
     transition-duration: .25s;
   }
-
   .search-engine-options {
     width: 3rem;
     height: 3rem;
@@ -73,12 +62,10 @@
     justify-content: center;
     align-items: center;
   }
-  
   .search-engine-options > img {
     width: 2rem;
     height: 2rem;
   }
-
   .current-search-engine {
     float: left;
     width: 2rem;
@@ -87,11 +74,9 @@
     margin-bottom: .5rem;
     margin-left: .5rem;
   }
-
   .current-search-engine:hover {
     cursor: pointer;
   }
-
   .arrow {
     float: right;
     margin-right: .4rem;
@@ -105,15 +90,12 @@
     border-left: .4rem solid transparent;
     border-right: .4rem solid transparent;
   }
-
   .arrow:hover {
     cursor: pointer;
   }
-
   .engine-select {
     height: 15rem;
   }
-
   .select {
     margin-top: 0;
     cursor: pointer;

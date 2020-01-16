@@ -3,24 +3,16 @@
     <div class="container">
       <div class="hook"></div>
     </div>
-    <p class="msg">{{ msg }}</p>
+    <p class="msg">{{ $store.state.tipsMsg }}</p>
   </div>
 </template>
 
-<script>
-  export default {
-    props: [
-      'msg'
-    ],
-    data () {
-      return {
-        
-      }
-    },
-    methods: {
+<script lang="ts">
+import Vue from 'vue'
+import Component from 'vue-class-component'
 
-    }
-  }
+  @Component
+  export default class Tips extends Vue {}
 </script>
 
 <style scoped>
@@ -41,8 +33,8 @@
     border: .1rem solid #888;
     margin: auto;
     transition-duration: .25s;
+    z-index: 5;
   }
-
   .container {
     display: inline-block;
     vertical-align: top;
@@ -52,7 +44,6 @@
     background-color: #561CF5;
     margin-right: .6rem;
   }
-
   .hook {
     position: relative;
     top: .3rem;
@@ -64,10 +55,10 @@
     transform: rotate(-45deg);
     
   }
-
   .msg {
     display: inline-block;
     height: 1.8rem;
     vertical-align: top;
+    color: #333;
   }
 </style>
